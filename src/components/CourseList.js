@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../actions/courses";
+import { courseActions } from "../actions";
 
 const mapStateToProps = state => ({ ...state });
 const mapDispatchToProps = dispatch => ({
@@ -12,14 +12,15 @@ class CourseList extends Component {
     this.props.onMount();
   }
   render() {
-    return <ul>
-      {this.props.courses.map(course =>
-        <li key={course._id}>
-          {course.title}
-        </li>
-      )}
-    </ul>;
+    return (
+      <ul>
+        {this.props.courses.map(course =>
+          <li key={course._id}>
+            {course.title}
+          </li>
+        )}
+      </ul>
+    );
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
-
