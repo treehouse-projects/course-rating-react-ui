@@ -1,9 +1,10 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const NoAuthNav = props => (
   <nav>
-    <a className="signup" href="/#/signup">Sign Up</a>
-    <a className="signout" href="/#/signin">Sign In</a>
+    <NavLink to="/signup">Sign Up</NavLink>
+    <NavLink to="/signin">Sign In</NavLink>
   </nav>
 );
 
