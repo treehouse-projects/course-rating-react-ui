@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import listCourses from "./actions";
+import listCourses from "../actions/courses";
 
-const mapStateToProps = state => ({ state });
+const mapStateToProps = state => ({ ...state });
 
 const CourseList = props =>
   <ul>
-    {props.courses.listCourses.map(course =>
+    {props.courses.map(course =>
       <li key={course._id}>
         {course.title}
       </li>

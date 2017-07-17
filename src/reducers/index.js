@@ -1,17 +1,8 @@
 import { combineReducers } from "redux";
-import * as courseActions from "../actionTypes";
-
-function listCourses(state = [], action) {
-  switch (action.type) {
-    case courseActions.LIST_COURSES:
-      return [ ...action.courseList ];
-    default:
-      return state;
-  }
-}
+import courses from "./courses";
 
 const rootReducer = combineReducers({
-  listCourses
+  courses
 });
 
 export default rootReducer;
