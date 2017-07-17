@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Provider } from "react-redux";
 import store from "./store";
 import Courses from "./components/containers/Courses";
@@ -10,7 +11,7 @@ export default class App extends Component {
       <Provider store={store}>
         <div>
           <Header />
-          <Courses /> 
+          <Courses />
         </div>
       </Provider>
     );

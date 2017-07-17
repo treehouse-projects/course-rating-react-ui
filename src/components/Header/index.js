@@ -2,9 +2,11 @@ import React from 'react';
 import Breadcrumbs from './Breadcrumbs';
 import Navigation from './Navigation';
 
-const Header = props => (<header>
+const Header = props => (
+  <header>
     <Breadcrumbs />
     <Navigation />
-</header>);
+  </header>
+);
 
 export default Header;
