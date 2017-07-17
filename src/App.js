@@ -4,11 +4,19 @@ import store from "./store";
 import CourseList from "./components/CourseList";
 
 export default class App extends Component {
+  isAuthenticated = () => true;
+  componentWillMount() {
+    if (this.isAuthenticated()) {
+      this.authenticated = "Hello";
+    } else {
+      this.authenticated = "Goodbye";
+    }
+  }
   render() {
     return (
       <Provider store={store}>
         <div>
-          <h1>Helloworld</h1>
+          <h1>{this.authenticated} world</h1>
           <CourseList />
         </div>
       </Provider>

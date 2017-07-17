@@ -2,8 +2,8 @@ import fetch from 'isomorphic-fetch'
 
 import * as courseActions from '../actionTypes';
 
-const courseState = {
-  data: [
+const courseState = 
+  [
     {
       _id: "57029ed4795118be119cc43d",
       title: "Build a Basic Bookcase"
@@ -17,11 +17,22 @@ const courseState = {
       title: "jQuery Basics"
     }
   ]
-};
+;
 
 export function listCourses() {
   return {
+    type: courseActions.REQUEST_COURSE_LIST
+  }
+}
+export function listCourses() {
+  return {
     type: courseActions.LIST_COURSES,
-    courseList: [...courseState.data]
+    courseList: [...courseState]
+  }
+}
+export function listCourses() {
+  return {
+    type: courseActions.LIST_COURSES,
+    courseList: [...courseState]
   }
 }
