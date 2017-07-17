@@ -1,16 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import listCourses from "../actions/courses";
+import * as courseActions from "../actions/courses";
 
-const mapStateToProps = state => ({...state });
+const mapStateToProps = state => ({ ...state });
+const mapDispatchToProps = dispatch => ({
+  onMount: () => dispatch(courseActions.fetchCourseList())
+});
 
-const CourseList = props =>
-    <ul > {
-        props.courses.map(course =>
-            <
-            li key = { course._id } > { course.title } <
-            /li>
-        )
-    } </ul>;
+class CourseList extends Component {
+  componentDidMount() {
+    this.props.onMount();
+  }
+  render() {
+    return <ul>
+      {this.props.courses.map(course =>
+        <li key={course._id}>
+          {course.title}
+        </li>
+      )}
+    </ul>;
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
 
-export default connect(mapStateToProps)(CourseList);
