@@ -22,3 +22,4 @@ class CourseList extends Component {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
+
