@@ -1,4 +1,5 @@
 import fetch from "isomorphic-fetch";
+import { apiRoot } from "../config";
 
 import * as courseActions from "../actionTypes";
 
@@ -32,14 +33,14 @@ export function requestCourseListFailure(err) {
 
 export function fetchCourseList() {
   return dispatch => {
-    return fetch(`http://localhost:5000/api/courses`, {
+    return fetch(`${apiRoot}/courses`, {
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(response => response.json())
-      .then(doc => {
-        dispatch(requestCourseListSuccess(doc));
+      .then(({ data }) => {
+        dispatch(requestCourseListSuccess(data));
       })
       .catch(err => {
         dispatch(requestCourseListFailure());
