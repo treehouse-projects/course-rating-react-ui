@@ -1,8 +1,8 @@
 import { authActions } from '../actionTypes';
 
-export function checkAuthEmpty(state) {
+export function logout() {
   return {
-    type: authActions.CHECK_AUTH_EMPTY,
-    auth: !state.auth
+    type: authActions.LOG_OUT_USER,
+    authentication: null
   };
 }

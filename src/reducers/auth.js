@@ -2,10 +2,8 @@ import { authActions } from "../actionTypes";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case authActions.CHECK_AUTH_EMPTY:
-      console.log(state);
-      console.log(action);
-      return !action.auth;
+    case authActions.LOG_OUT_USER:
+      return action.authentication;
     default:
       return state;
   }
