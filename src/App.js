@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect} from 'react-router-dom';
 import { Provider, connect } from "react-redux";
 import store from "./store";
 
@@ -16,10 +16,16 @@ import { authActions } from "./actions";
 import Header from "./components/Header";
 
 
-const loggedOut = (state) => store.dispatch(authActions.checkAuthEmpty(state)).auth;
-const loggedIn = (state) => store.dispatch(authActions.checkAuthEmpty(state)).auth;
 
-const signIn = (state) => loggedOut(state) ? (<Redirect to="/"/>) : (<SignUp/>);
+
+const loggedOut = (component) => {
+  return (props) => props.auth ? (<Redirect to="/"/>) : (component);
+}
+
+const loggedIn = (component) => {
+  return (props) => props.auth ? (component) : (<Redirect to="/"/>);
+}
+
 
 class App extends Component {
   render() {
@@ -29,8 +35,8 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path='/' component={Courses}/>
-            <Route path='/signup' render={signIn}  />
-            <Route path='/signin' component={SignIn} />
+            <Route path='/signup' render={loggedOut(<SignUp/>)}  />
+            <Route path='/signin' render={loggedOut(<SignIn/>)} />
             <Route path='/courses/:id' component={CourseDetail} />
           </div>
         </BrowserRouter>
