@@ -7,7 +7,7 @@ import auth from "./auth";
 const rootReducer = combineReducers({
   courses,
   course,
-  users,
+  //users,
   auth
 });
 
