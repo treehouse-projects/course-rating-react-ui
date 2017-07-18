@@ -1,16 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { breadcrumbActions } from "../actions";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import Title from "../components/Title";
 
-class SignIn extends React.Component {
-  componentWillMount() {
-    this.props.setTitle("Sign In");
-  }
-  render() {
-    return (
+const SignIn = props => (
       <div className="grid-33 centered signin">
+        <Title>Sign In</Title>
         <h1>Sign In</h1>
 
         {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
@@ -25,17 +19,5 @@ class SignIn extends React.Component {
         </form>
       </div>
     );
-  }
-}
-
-const mapStateToProps = state => ({ ...state });
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      setTitle: title => breadcrumbActions.updateTitle(title)
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+ 
+export default SignIn
