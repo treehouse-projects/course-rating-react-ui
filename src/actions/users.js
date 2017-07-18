@@ -53,6 +53,7 @@ export function fetchUser(username, password) {
 * POST /api/users
 */
 
+//   TODO: TEST RESPONSE FOR LOCATION HEADER 
 export function createUser() {
   return {
     type: userActions.CREATE_USER

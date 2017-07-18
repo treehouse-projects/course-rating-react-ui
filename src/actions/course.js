@@ -114,6 +114,7 @@ export function editCourseFailure(err) {
   };
 }
 
+//    TODO: TEST RESPONSE FOR LOCATION HEADER 
 export function sendEditCourse(courseData, authHeader) {
   return dispatch => {
     dispatch(editCourse());
