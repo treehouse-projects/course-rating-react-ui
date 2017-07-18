@@ -25,7 +25,7 @@ class CourseDetail extends Component {
               <h3 className="course--title">
                 {this.props.course.title}
               </h3>
-              <p>By </p>
+              <p>By {this.props.course}</p>
             </div>
             <div className="course--description">
               <div> { this.props.course.description } </div>

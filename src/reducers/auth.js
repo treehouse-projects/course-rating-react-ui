@@ -1,9 +1,9 @@
 import { authActions } from "../actionTypes";
 
-export default (state = [], action) => {
+export default (state = null, action) => {
   switch (action.type) {
     case authActions.LOG_OUT_USER:
-      return action.authentication;
+      return null;
     default:
       return state;
   }

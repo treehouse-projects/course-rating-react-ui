@@ -6,9 +6,8 @@ import rootReducer from "./reducers";
 
 // export const history = createHistory()
 
-const initialState = {
-  auth: true
-};
+const initialState = { };
+
 const enhancers = [];
 const middleware = [
   thunk

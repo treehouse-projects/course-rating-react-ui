@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 import { Provider, connect } from "react-redux";
 
+
 import store from "./store";
 
 // Containers
@@ -15,16 +16,18 @@ import CreateCourse from "./containers/CreateCourse";
 // Actions
 import { authActions } from "./actions";
 
+// Routes
+
+import EditCourseRoute from "./routes/EditCourseRoute";
+import RedirectHome from "./routes/RedirectHome";
+
+
 // Components
 import Header from "./components/Header";
-
+import Authenticated from "./components/Authenticated";
 
 const loggedOut = (component) => {
   return (props) => props.auth ? (<Redirect to="/"/>) : (component);
-}
-
-const loggedIn = (component) => {
-  return (props) => props.auth ? (component) : (<Redirect to="/"/>);
 }
 
 const logout = (props) => {
@@ -42,7 +45,8 @@ class App extends Component {
               <Route exact path='/' component={Courses} />
               <Route path='/signup' render={loggedOut(<SignUp/>)} />
               <Route path='/signin' render={loggedOut(<SignIn/>)} />
-              <Route path='/courses/:id' component={CourseDetail} />
+              <Route exact path='/courses/:id' component={CourseDetail} />
+              <Authenticated AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
               <Route path='/new-course' component={CreateCourse} />
             </Switch>
           </div>
