@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const SignIn = props => (
-  <form>
-    <label>SIGNIN</label>
-  </form>
-);
 
-export default SignIn;
+class SignIn extends Component {
+
+  render() {
+    return (
+      <form>
+        <label>SIGNIN</label>
+      </form>
+    );
+  }
+}
+
+export default connect()(SignIn);

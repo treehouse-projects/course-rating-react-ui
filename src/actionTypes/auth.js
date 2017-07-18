@@ -1,0 +1,1 @@
+export const CHECK_AUTH_EMPTY = 'CHECK_AUTH_EMPTY';
