@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const CourseDetail = props =>
-    (<div>
-        <h1>Single Course</h1>
-    </div>);
+import { courseActions } from "../actions";
 
-export default CourseDetail;
+class CourseDetail extends Component {
+    
+    componentDidMount() {
+        this.props.onMount(this.props.match.params.id);
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Single Course</h1>
+                { this.props.course.map((course, index) => (
+                    <h2 key={index}>
+                        {course.title}
+                    </h2>
+                ))}
+            </div>
+        );
+    }
+    
+}
+
+const mapStateToProps = state => ({ ...state });
+
+const mapDispatchToProps = dispatch => ({ 
+    onMount: (id) => dispatch(courseActions.fetchCourse(id)) 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseDetail);

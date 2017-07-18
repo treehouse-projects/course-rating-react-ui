@@ -7,7 +7,7 @@ import rootReducer from "./reducers";
 // export const history = createHistory()
 
 const initialState = {
-  isAuthenticated: false
+  auth: true
 };
 const enhancers = [];
 const middleware = [
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "development") {
   }
 }
 
-const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+const composedEnhancers = compose(applyMiddleware(...middleware));
 
 const store = createStore(rootReducer, initialState, composedEnhancers);
 

@@ -1,3 +1,9 @@
-import * as courseActions from "./courses";
+import * as coursesActions from "./courses";
+import * as courseActions from "./course";
+import * as authActions from "./auth";
 
-export { courseActions };
+export { 
+    coursesActions,
+    courseActions,
+    authActions
+ };
