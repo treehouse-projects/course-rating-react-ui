@@ -49,7 +49,6 @@ export function fetchCourse(id) {
 * POST /api/courses/
 */
 
-
 export function createCourse() {
   return {
     type: courseActions.CREATE_COURSE
@@ -70,14 +69,15 @@ export function createCourseFailure(err) {
   };
 }
 
-export function sendCreateCourse(courseData) {
+export function sendCreateCourse(courseData, authHeader) {
   return dispatch => {
     dispatch(createCourse());
-    return fetch(`${apiRoot}/courses/${id}`, {
+    return fetch(`${apiRoot}/courses`, {
       method: "post",
       body: { data: courseData },
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: authHeader
       }
     })
       .then(response => response.json())
@@ -114,14 +114,15 @@ export function editCourseFailure(err) {
   };
 }
 
-export function sendEditCourse(id, courseData) {
+export function sendEditCourse(courseData, authHeader) {
   return dispatch => {
     dispatch(editCourse());
-    return fetch(`${apiRoot}/courses/${id}/courses`, {
+    return fetch(`${apiRoot}/courses/${courseData._id}/courses`, {
       method: "post",
-      body: { data: courseData },
+      body: JSON.stringify(courseData),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": authHeader
       }
     })
       .then(response => response.json())
@@ -158,14 +159,15 @@ export function createReviewFailure(err) {
   };
 }
 
-export function sendCreateReview(reviewData) {
+export function sendCreateReview(id, reviewData, authHeader) {
   return dispatch => {
     dispatch(createReview());
     return fetch(`${apiRoot}/courses/${id}/reviews`, {
       method: "post",
-      body: { data: reviewData },
+      body: JSON.stringify(reviewData),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": authHeader
       }
     })
       .then(response => response.json())

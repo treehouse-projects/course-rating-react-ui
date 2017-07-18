@@ -33,7 +33,8 @@ export function fetchUser(username, password) {
     dispatch(requestUser())
     return fetch(`${apiRoot}/users`, {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": authHeader
       }
     })
       .then(response => response.json())
