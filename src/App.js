@@ -24,7 +24,7 @@ export default class App extends Component {
             <Route component={Header} />
 
             <Switch>
-              <Route exact path='/' component={Courses}/>
+              <Route exact path='/' component={Courses} />
               <Route path='/signup' component={SignUp} />
               <Route path='/signin' component={SignIn} />
               <Route path='/courses/:id' component={CourseDetail} />
