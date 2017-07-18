@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -19,10 +22,13 @@ export default class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route exact path='/' component={Courses}/>
-            <Route path='/signup' component={SignUp} />
-            <Route path='/signin' component={SignIn} />
-            <Route path='/courses/:id' component={CourseDetail} />
+
+            <Switch>
+              <Route exact path='/' component={Courses}/>
+              <Route path='/signup' component={SignUp} />
+              <Route path='/signin' component={SignIn} />
+              <Route path='/courses/:id' component={CourseDetail} />
+            </Switch>
           </div>
         </BrowserRouter>
       </Provider>
