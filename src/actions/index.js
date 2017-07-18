@@ -1,3 +1,7 @@
-import * as courseActions from "./courses";
+import * as coursesActions from "./courses";
+import * as courseActions from "./course";
 
-export { courseActions };
+export { 
+    coursesActions,
+    courseActions
+ };

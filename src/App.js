@@ -3,17 +3,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
 
-<<<<<<< HEAD
-export default class App extends Component {
-  isAuthenticated = () => true;
-  componentWillMount() {
-    if (this.isAuthenticated()) {
-      this.authenticated = "Hello";
-    } else {
-      this.authenticated = "Goodbye";
-    }
-  }
-=======
 // Containers
 import Courses from "./containers/Courses";
 import SignUp from "./containers/SignUp";
@@ -24,7 +13,6 @@ import CourseDetail from "./containers/CourseDetail";
 import Header from "./components/Header";
 
 export default class App extends Component {
->>>>>>> 225d2e4862fd03ad2bcaba280b07c4207c464ae2
   render() {
     return (
       <Provider store={store}>
