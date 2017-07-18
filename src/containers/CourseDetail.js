@@ -13,9 +13,10 @@ class CourseDetail extends Component {
         return (
             <div>
                 <h1>Single Course</h1>
-                { this.props.course.map((course, index) => (
+                {   
+                    this.props.course.map((course, index) => (
                     <h2 key={index}>
-                        {course.title}
+                        {course.description}
                     </h2>
                 ))}
             </div>

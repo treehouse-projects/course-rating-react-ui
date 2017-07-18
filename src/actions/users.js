@@ -1,7 +1,7 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
 import basicAuth from "basic-auth";
-import * as userActions from "../actionTypes";
+import { userActions } from "../actionTypes";
 
 /*
 * GET /api/users
