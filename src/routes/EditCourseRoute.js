@@ -5,7 +5,7 @@ import { Route} from 'react-router-dom';
 import EditCourse from '../containers/EditCourse'
 
 const EditCourseRoute = (props) => (
-  <Route path='/edit' component={EditCourse}/>
+  <Route path='/courses/:id/edit' component={EditCourse}/>
 );
 
 export default EditCourseRoute;
