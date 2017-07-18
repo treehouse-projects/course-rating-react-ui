@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../actions/courses";
+
+import { courseActions } from "../../actions";
+
+import CourseCard from "./CourseCard";
 
 const mapStateToProps = state => ({ ...state });
+
 const mapDispatchToProps = dispatch => ({
   onMount: () => dispatch(courseActions.fetchCourseList())
 });
@@ -12,14 +16,13 @@ class CourseList extends Component {
     this.props.onMount();
   }
   render() {
-    return <ul>
-      {this.props.courses.map(course =>
-        <li key={course._id}>
-          {course.title}
-        </li>
-      )}
-    </ul>;
+    return (
+      <div className="bounds">
+        {this.props.courses.map(course =>
+          <CourseCard key={course._id} course={course} />
+        )}
+      </div>
+    );
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
-

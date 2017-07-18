@@ -3,6 +3,7 @@ import { apiRoot } from "../config";
 
 import * as courseActions from '../actionTypes/courses';
 
+<<<<<<< HEAD
 const courseState = 
   [
     {
@@ -19,6 +20,13 @@ const courseState =
     }
   ]
 ;
+=======
+export function requestCourseList() {
+  return {
+    type: courseActions.REQUEST_COURSE_LIST
+  };
+}
+>>>>>>> 225d2e4862fd03ad2bcaba280b07c4207c464ae2
 
 export function requestCourseListSuccess(data) {
   return {
@@ -35,6 +43,7 @@ export function requestCourseListFailure(err) {
 
 export function fetchCourseList() {
   return dispatch => {
+    dispatch(requestCourseList())
     return fetch(`${apiRoot}/courses`, {
       headers: {
         "Content-Type": "application/json"
