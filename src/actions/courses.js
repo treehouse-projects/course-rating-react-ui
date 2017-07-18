@@ -8,6 +8,7 @@ export function requestCourseListSuccess(data) {
     type: courseActions.REQUEST_COURSE_LIST_SUCCESS,
     courses: data
   };
+
 }
 export function requestCourseListFailure(err) {
   return {
