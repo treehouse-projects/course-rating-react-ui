@@ -14,6 +14,7 @@ export function requestCourseListSuccess(data) {
     type: coursesActions.REQUEST_COURSE_LIST_SUCCESS,
     courses: data
   };
+
 }
 
 export function requestCourseListFailure(err) {

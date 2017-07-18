@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-import basicAuth from "basic-auth";
+//import basicAuth from "basic-auth";
 import { userActions } from "../actionTypes";
 
 /*

@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 
 import { coursesActions } from "../../actions";
 
 import CourseCard from "./CourseCard";
+import NewCourseCard from "./NewCourseCard";
 
 const mapStateToProps = state => ({ ...state });
 
-const mapDispatchToProps = dispatch => ({
-  onMount: () => dispatch(coursesActions.fetchCourseList())
-});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  onMount: () => coursesActions.fetchCourseList()
+}, dispatch);
 
 class CourseList extends Component {
   componentDidMount() {
@@ -21,6 +24,7 @@ class CourseList extends Component {
         {this.props.courses.map(course =>
           <CourseCard key={course._id} course={course} />
         )}
+        { this.props.isAuthenticated ? <NewCourseCard /> : null }
       </div>
     );
   }
