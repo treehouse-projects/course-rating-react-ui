@@ -21,7 +21,7 @@ export default class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div>
-            <Header />
+            <Route component={Header} />
 
             <Switch>
               <Route exact path='/' component={Courses}/>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-const CourseDetail = props =>
-    (<div>
-        <h1>Single Course</h1>
-    </div>);
+const CourseDetail = props => (
+  <div>
+
+  </div>
+);
 
 export default CourseDetail;
