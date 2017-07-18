@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-
+import basicAuth from "basic-auth";
 import * as userActions from "../actionTypes";
 
 /*
@@ -31,6 +31,7 @@ export function requestUserFailure(err) {
 export function fetchUser(username, password) {
   return dispatch => {
     dispatch(requestUser())
+    const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
     return fetch(`${apiRoot}/users`, {
       headers: {
         "Content-Type": "application/json",
