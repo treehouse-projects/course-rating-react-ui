@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
 import courses from "./courses";
+import breadcrumb from "./breadcrumb";
 
 const rootReducer = combineReducers({
-  courses
+  courses,
+  breadcrumb
 });
 
 export default rootReducer;

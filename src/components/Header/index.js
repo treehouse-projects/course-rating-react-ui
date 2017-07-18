@@ -8,7 +8,7 @@ const Header = props => (
     <div className="bounds">
       <h1 className="header--logo">
         <NavLink exact to="/" activeClassName="selected">Courses</NavLink>
-        <Breadcrumbs location={props.location.pathname} />
+        <Breadcrumbs />
       </h1>
       <Navigation />
     </div>

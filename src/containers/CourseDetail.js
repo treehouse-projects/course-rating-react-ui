@@ -2,6 +2,7 @@ import React from 'react';
 
 const CourseDetail = props => (
   <div>
+<<<<<<< HEAD
     <div className="actions--bar">
       <div className="bounds">
         <div className="grid-100">
@@ -105,6 +106,9 @@ const CourseDetail = props => (
 
       </div>
     </div>
+=======
+    
+>>>>>>> 1e77cd341536b9cf1f843e405fabe54371760089
   </div>
 );
 
