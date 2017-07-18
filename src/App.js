@@ -10,7 +10,9 @@ import store from "./store";
 import Courses from "./containers/Courses";
 import SignUp from "./containers/SignUp";
 import SignIn from "./containers/SignIn";
+import CourseContainer from './containers/CourseContainer';
 import CourseDetail from "./containers/CourseDetail";
+import CreateCourse from "./containers/CreateCourse";
 
 // Components
 import Header from "./components/Header";
@@ -27,7 +29,8 @@ export default class App extends Component {
               <Route exact path='/' component={Courses}/>
               <Route path='/signup' component={SignUp} />
               <Route path='/signin' component={SignIn} />
-              <Route path='/courses/:id' component={CourseDetail} />
+              <Route path='/courses/:id' render={({match}) => <CourseContainer id={match.params.id}/>} />
+              <Route path='/new-course' component={CreateCourse} />
             </Switch>
           </div>
         </BrowserRouter>
