@@ -1,1 +1,1 @@
-export const CHECK_AUTH_EMPTY = 'CHECK_AUTH_EMPTY';
+export const CHECK_AUTH_EMPTY = 'LOG_OUT_USER';
