@@ -3,26 +3,32 @@ import { apiRoot } from "../config";
 
 import * as userActions from "../actionTypes";
 
+/*
+* GET /api/users
+*/
+
 export function requestUser() {
   return {
-    type: courseActions.REQUEST_USER
+    type: userActions.REQUEST_USER
   };
 }
 
 export function requestUserSuccess(data) {
   return {
-    type: courseActions.REQUEST_USER_SUCCESS,
-    courses: data
+    type: userActions.REQUEST_USER_SUCCESS,
+    user: data
   };
 }
 export function requestUserFailure(err) {
   return {
-    type: courseActions.REQUEST_USER_FAILURE,
+    type: userActions.REQUEST_USER_FAILURE,
     err: err
   };
 }
 
-export function fetchUser() {
+/*    TODO: AUTHORIZE USER LOGIC    */
+
+export function fetchUser(username, password) {
   return dispatch => {
     dispatch(requestUser())
     return fetch(`${apiRoot}/users`, {
@@ -41,29 +47,35 @@ export function fetchUser() {
   };
 }
 
+/*
+* POST /api/users
+*/
+
 export function createUser() {
   return {
-    type: courseActions.CREATE_USER
+    type: userActions.CREATE_USER
   };
 }
 
 export function createUserSuccess(data) {
   return {
-    type: courseActions.CREATE_USER_SUCCESS,
-    courses: data
+    type: userActions.CREATE_USER_SUCCESS,
+    user: data
   };
 }
 export function createUserFailure(err) {
   return {
-    type: courseActions.CREATE_USER_FAILURE,
+    type: userActions.CREATE_USER_FAILURE,
     err: err
   };
 }
 
-export function sendCreateUser() {
+export function sendCreateUser(userData) {
   return dispatch => {
     dispatch(createUser())
     return fetch(`${apiRoot}/users`, {
+      method: 'post',
+      body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json"
       }
