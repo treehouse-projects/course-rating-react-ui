@@ -26,6 +26,10 @@ const loggedIn = (component) => {
   return (props) => props.auth ? (component) : (<Redirect to="/"/>);
 }
 
+const logout = (props) => {
+  
+}
+
 
 class App extends Component {
   render() {
@@ -35,7 +39,8 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path='/' component={Courses}/>
-            <Route path='/signup' render={loggedOut(<SignUp/>)}  />
+            <Route path='/logout' render={logout}  />
+            <Route path='/signup' render={loggedOut(<SignUp/>)} />
             <Route path='/signin' render={loggedOut(<SignIn/>)} />
             <Route path='/courses/:id' component={CourseDetail} />
           </div>

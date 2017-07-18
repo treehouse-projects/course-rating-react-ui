@@ -31,9 +31,11 @@ export function requestUserFailure(err) {
 export function fetchUser(username, password) {
   return dispatch => {
     dispatch(requestUser())
+    const encodedCred = `Basic ${btoa(`${username}:${password}`)}`;
     return fetch(`${apiRoot}/users`, {
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": encodedCred,
       }
     })
       .then(response => response.json())
