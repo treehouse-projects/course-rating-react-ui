@@ -37,8 +37,7 @@ export function fetchCourse(id) {
     })
       .then(response => response.json())
       .then(({ data }) => {
-        console.log(data);
-        dispatch(requestCourseSuccess(data));
+        dispatch(requestCourseSuccess(data[0]));
       })
       .catch(err => {
         dispatch(requestCourseFailure(err));

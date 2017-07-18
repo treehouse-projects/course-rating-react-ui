@@ -28,7 +28,7 @@ class CourseDetail extends Component {
               <p>By </p>
             </div>
             <div className="course--description">
-              <div> description </div>
+              <div> { this.props.course.description } </div>
               {/*<div ng-bind-html="vm.course.description | lineReturnsToParagraphs"></div>*/}
               <ol>
                 {/* STEPS */}
