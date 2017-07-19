@@ -7,8 +7,6 @@ import store from "./store";
 
 // Containers
 import Courses from "./containers/Courses";
-import SignUp from "./containers/SignUp";
-import SignIn from "./containers/SignIn";
 import CourseDetail from "./containers/CourseDetail";
 import CreateCourse from "./containers/CreateCourse";
 
@@ -18,6 +16,8 @@ import { authActions } from "./actions";
 // Routes
 
 import EditCourseRoute from "./routes/EditCourseRoute";
+import SignInRoute from "./routes/SignInRoute";
+import SignUpRoute from "./routes/SignUpRoute";
 import RedirectHome from "./routes/RedirectHome";
 
 
@@ -25,13 +25,6 @@ import RedirectHome from "./routes/RedirectHome";
 import Header from "./components/Header";
 import Authenticated from "./components/Authenticated";
 
-const loggedOut = (component) => {
-  return (props) => props.auth ? (<Redirect to="/"/>) : (component);
-}
-
-const logout = (props) => {
-  
-}
 
 class App extends Component {
   render() {
@@ -42,10 +35,10 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path='/' component={Courses} />
-              <Route path='/signup' render={loggedOut(<SignUp/>)} />
-              <Route path='/signin' render={loggedOut(<SignIn/>)} />
+              <Authenticated path="/signin" AuthComponent={RedirectHome} NoAuthComponent={SignInRoute} />
+              <Authenticated path="/signup" AuthComponent={RedirectHome} NoAuthComponent={SignUpRoute} />
               <Route exact path='/courses/:id' component={CourseDetail} />
-              <Authenticated AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
+              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
               <Route path='/new-course' component={CreateCourse} />
             </Switch>
           </div>
