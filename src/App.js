@@ -30,7 +30,7 @@ const loggedOut = (component) => {
 }
 
 const logout = (props) => {
-  
+
 }
 
 class App extends Component {
@@ -44,9 +44,9 @@ class App extends Component {
               <Route exact path='/' component={Courses} />
               <Route path='/signup' render={loggedOut(<SignUp/>)} />
               <Route path='/signin' render={loggedOut(<SignIn/>)} />
+              <Route path='/new-course' component={CreateCourse} />
               <Route exact path='/courses/:id' component={CourseDetail} />
               <Authenticated AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
-              <Route path='/new-course' component={CreateCourse} />
             </Switch>
           </div>
         </BrowserRouter>

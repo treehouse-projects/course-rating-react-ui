@@ -1,6 +1,12 @@
 import { courseActions } from "../actionTypes";
 
-export default (state = [], action) => {
+const defaultState = {
+  reviews: [],
+  steps: [],
+  user: {}
+}
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case courseActions.REQUEST_COURSE:
       return state;
