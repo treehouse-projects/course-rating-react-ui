@@ -124,7 +124,6 @@ class CreateCourse extends Component {
                     return (
                       <li key={i}>
                         <h3>
-                          {(i + 1).toString()}{" "}
                           <input
                             type="text"
                             placeholder="Step Title..."

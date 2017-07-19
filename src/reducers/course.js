@@ -4,6 +4,7 @@ const defaultState = {
   reviews: [],
   steps: [],
   user: {},
+  title: '',
   description: '',
   materialsNeeded: ''
 }

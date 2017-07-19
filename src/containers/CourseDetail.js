@@ -5,6 +5,7 @@ import Rating from '../components/Rating';
 import { connect } from "react-redux";
 import { courseActions } from "../actions";
 import ReactMarkdown from 'react-markdown';
+import Title from "../components/Title";
 
 class CourseDetail extends Component {
   componentDidMount() {
@@ -27,6 +28,8 @@ class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
+              <Title>{this.props.course.title}</Title>
+              {console.log(this.props.course.title)}
               <h3 className="course--title">{this.props.course.title}</h3>
               <p>By {this.props.course.user.fullName}</p>
             </div>
