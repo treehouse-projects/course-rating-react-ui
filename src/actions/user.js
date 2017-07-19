@@ -36,9 +36,10 @@ export function fetchUser(username, password) {
     const authHeader = createAuthHeader(username, password);
     return fetch(`${apiRoot}/users`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: authHeader
       }
-    })
+      })
       .then(response => response.json())
       .then(unwrapUser)
       .then(user => {
@@ -47,8 +48,7 @@ export function fetchUser(username, password) {
       })
       .then(() => dispatch(authenticated(authHeader)))
       .catch(err => {
-        dispatch(requestUserFailure());
-        console.log(err);
+        dispatch(requestUserFailure(err));
       });
   };
 }
@@ -81,7 +81,7 @@ export function sendCreateUser(userData) {
       mode:'cors',
       body: JSON.stringify(userData)
     })
-      .then(() => fetchUser(userData.username, userData.password)(dispatch))
+      .then(() => fetchUser(userData.emailAddress, userData.password)(dispatch))
       .catch(err => {
         dispatch(createUserFailure());
         console.log(err);
