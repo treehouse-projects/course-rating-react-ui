@@ -32,15 +32,15 @@ export function fetchCourse(id) {
     dispatch(requestCourse());
     return fetch(`${apiRoot}/courses/${id}`, {
       headers: {
-        "Content-Type": "application/json"
+        // "Content-Type": "application/json"
       }
     })
       .then(response => response.json())
       .then(({ data }) => {
-        dispatch(requestCourseSuccess(data[0]));
+        return dispatch(requestCourseSuccess(data[0]));
       })
       .catch(err => {
-        dispatch(requestCourseFailure(err));
+        return dispatch(requestCourseFailure(err));
       });
   };
 }

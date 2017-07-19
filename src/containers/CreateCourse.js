@@ -9,24 +9,31 @@ class CreateCourse extends Component {
   };
 
   changeHandler(formField, value) {
-    this.setState({
-      ...this.state,
-      [formField]: value
-    }, () => console.log(this.state));
+    this.setState(
+      {
+        ...this.state,
+        [formField]: value
+      },
+      () => console.log(this.state)
+    );
   }
 
   stepChangeHandler(stepField, value, index) {
-    this.setState({
-      ...this.state,
-      steps: this.state.steps.map((step, i) => {
-        if (i === index) {
-          return {
-            ...this.state.steps[i],
-            [stepField]: value
-          };
-        }
-      })
-    }, () => console.log(this.state));
+    this.setState(
+      {
+        ...this.state,
+        steps: this.state.steps.map((step, i) => {
+          console.log(step, i);
+          if (i === index) {
+            return {
+              ...this.state.steps[i],
+              [stepField]: value
+            };
+          }
+        })
+      },
+      () => console.log(this.state)
+    );
   }
 
   addStep(index) {
@@ -34,7 +41,7 @@ class CreateCourse extends Component {
     // so increment the index to determine the new step number
     let newStepNumber = index + 1;
     // increment the step number for any steps that come after the new step
-    let {steps} = this.state;
+    let { steps } = this.state;
     steps.forEach(step => {
       if (step.stepNumber >= newStepNumber) {
         step.stepNumber++;
@@ -47,7 +54,10 @@ class CreateCourse extends Component {
       title: "",
       description: ""
     });
-    this.setState({ steps: this.state.steps });
+    this.setState({
+      ...this.state,
+      steps: [...this.state.steps, { title: "", description: "" }]
+    });
   }
 
   removeStep(indexToRemove) {
@@ -122,10 +132,9 @@ class CreateCourse extends Component {
                 <ol>
                   {this.state.steps.map((step, i) => {
                     return (
-                      <li key={i}>
+                      <li key={'step_' + i}>
                         <h3>
-                          {(i + 1).toString()}{" "}
-                          <input
+                          {" "}<input
                             type="text"
                             placeholder="Step Title..."
                             className="input-title course--steps--input"
@@ -136,16 +145,20 @@ class CreateCourse extends Component {
                                 i
                               );
                             }}
-                            value={this.state.steps[i].title}
+                            value={step.title}
                           />
                         </h3>
                         <textarea
                           placeholder="Step description..."
                           className="autogrow"
                           onChange={e => {
-                            this.stepChangeHandler("description", e.target.value, i);
+                            this.stepChangeHandler(
+                              "description",
+                              e.target.value,
+                              i
+                            );
                           }}
-                          value={this.state.steps[i].description}
+                          value={step.description}
                         />
                         <a
                           className="course--steps--add"
