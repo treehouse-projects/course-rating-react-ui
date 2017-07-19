@@ -33,11 +33,14 @@ class CourseDetail extends Component {
             <div className="course--description">
               <MultiLineText text={this.props.course.description} />
               <ol>
-                {/* STEPS */}
-                <li>
-                  <h3 />
-                  {/*<div ng-bind-html="step.description | lineReturnsToParagraphs"></div>*/}
-                </li>
+                {this.props.course.steps.map(step => {
+                  return (
+                    <li>
+                      <h3>{ step.number } { step.title }</h3>
+                      <MultiLineText text={step.description} />
+                    </li>
+                  );
+                })}
               </ol>
             </div>
           </div>
@@ -75,7 +78,7 @@ class CourseDetail extends Component {
               <h2>{this.props.course.reviews.length} Reviews</h2>
 
               <ul className="course--reviews--list">
-                {/* REVIEWS
+                {/* REVIEWS */}
                 {this.props.course.reviews.map(r => {
                   return <Review name={r.user.fullName}
                                  review={r.review}
@@ -83,7 +86,6 @@ class CourseDetail extends Component {
                                  rating={r.rating}
                                  key={r.id} />
                 })}
-                */}
               </ul>
 
               <form className="course--reviews--form">
