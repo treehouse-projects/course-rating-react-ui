@@ -6,3 +6,10 @@ export function logout() {
     authentication: null
   };
 }
+
+export function authenticated(authentication) {
+  return {
+    type: authActions.USER_AUTHENTICATED,
+    authentication
+  };
+}

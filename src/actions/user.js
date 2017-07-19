@@ -2,6 +2,7 @@ import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
 //import basicAuth from "basic-auth";
 import { userActions } from "../actionTypes";
+import { authenticated } from "./auth";
 
 /*
 * GET /api/users
@@ -13,10 +14,10 @@ export function requestUser() {
   };
 }
 
-export function requestUserSuccess(data) {
+export function requestUserSuccess(user) {
   return {
     type: userActions.REQUEST_USER_SUCCESS,
-    user: data
+    user
   };
 }
 export function requestUserFailure(err) {
@@ -34,14 +35,15 @@ export function fetchUser(username, password) {
     const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
     return fetch(`${apiRoot}/users`, {
       headers: {
-        "Content-Type": "application/json",
         "Authorization": authHeader
       }
     })
       .then(response => response.json())
       .then(({ data }) => {
-        dispatch(requestUserSuccess(data));
-      })
+        const user = data[0];
+        const {fullName, _id} = user;
+        dispatch(requestUserSuccess({fullName, _id}));
+      }).then(() => dispatch(authenticated(authHeader)))
       .catch(err => {
         dispatch(requestUserFailure());
         console.log(err);

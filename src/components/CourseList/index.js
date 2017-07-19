@@ -6,6 +6,7 @@ import { coursesActions } from "../../actions";
 
 import CourseCard from "./CourseCard";
 import NewCourseCard from "./NewCourseCard";
+import Authenticated from "../Authenticated"
 
 const mapStateToProps = state => ({ ...state });
 
@@ -24,7 +25,7 @@ class CourseList extends Component {
         {this.props.courses.map(course =>
           <CourseCard key={course._id} course={course} />
         )}
-        { this.props.isAuthenticated ? <NewCourseCard /> : null }
+        <Authenticated AuthComponent={NewCourseCard} />
       </div>
     );
   }

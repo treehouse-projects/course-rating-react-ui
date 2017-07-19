@@ -30,7 +30,7 @@ export function fetchCourseList() {
     dispatch(requestCourseList())
     return fetch(`${apiRoot}/courses`, {
       headers: {
-        "Content-Type": "application/json"
+        //"Content-Type": "application/json"
       }
     })
       .then(response => response.json())

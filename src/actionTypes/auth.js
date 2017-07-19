@@ -1,1 +1,2 @@
 export const LOG_OUT_USER = 'LOG_OUT_USER';
+export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
