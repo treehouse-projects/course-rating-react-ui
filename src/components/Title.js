@@ -10,7 +10,7 @@ class Title extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.props.setTitle(nextProps.children);
   }
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.props.setTitle("");
   }
   render() {
