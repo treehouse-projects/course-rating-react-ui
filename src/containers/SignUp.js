@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { userActions } from "../actions";
 import Title from "../components/Title";
+import SignUpForm from "../components/SignUpForm";
 
 const SignUp = props =>
   <div className="grid-33 centered signup">
@@ -9,16 +13,11 @@ const SignUp = props =>
 
     {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
 
-    <form>
-      <input type="text" placeholder="Full Name" />
-      <input type="email" placeholder="Email Address" />
-      <input type="password" placeholder="Password" />
-      <input type="password" placeholder="Confirm Password" />
-      <button className="button">Sign Up</button>
-      <NavLink className="button button-secondary" to="/signin">
-        Sign In
-      </NavLink>
-    </form>
+    <SignUpForm onSubmit={props.submitSignUp} />
   </div>;
 
-export default SignUp;
+const mapDispatchToProps = dispatch => bindActionCreators({
+  submitSignUp: userData =>  userActions.sendCreateUser(userData)
+}, dispatch);
+ 
+export default connect(null, mapDispatchToProps)(SignUp);
