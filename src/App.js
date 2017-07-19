@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
-import { Provider, connect } from "react-redux";
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Provider } from "react-redux";
 
 
 import store from "./store";
@@ -9,9 +9,6 @@ import store from "./store";
 import Courses from "./containers/Courses";
 import CourseDetail from "./containers/CourseDetail";
 import CreateCourse from "./containers/CreateCourse";
-
-// Actions
-import { authActions } from "./actions";
 
 // Routes
 

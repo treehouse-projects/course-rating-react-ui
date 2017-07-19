@@ -4,7 +4,8 @@ import { userActions } from "../actionTypes";
 import { authenticated } from "./auth";
 
 const unwrapUser = ({ data }) => data[0];
-    
+const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`;
+
 /*
 * GET /api/users
 */
@@ -21,6 +22,7 @@ export function requestUserSuccess(user) {
     user
   };
 }
+
 export function requestUserFailure(err) {
   return {
     type: userActions.REQUEST_USER_FAILURE,
@@ -31,7 +33,7 @@ export function requestUserFailure(err) {
 export function fetchUser(username, password) {
   return dispatch => {
     dispatch(requestUser());
-    const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
+    const authHeader = createAuthHeader(username, password);
     return fetch(`${apiRoot}/users`, {
       headers: {
         Authorization: authHeader
@@ -61,33 +63,25 @@ export function createUser() {
   };
 }
 
-export function createUserSuccess(data) {
-  return {
-    type: userActions.CREATE_USER_SUCCESS,
-    user: data
-  };
-}
 export function createUserFailure(err) {
   return {
     type: userActions.CREATE_USER_FAILURE,
     err: err
   };
 }
-
 export function sendCreateUser(userData) {
   return dispatch => {
     dispatch(createUser());
+    console.log(userData);
     return fetch(`${apiRoot}/users`, {
-      method: "post",
-      body: JSON.stringify(userData),
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
-      }
+          'Content-Type': 'application/json'
+      },
+      mode:'cors',
+      body: JSON.stringify(userData)
     })
-      .then(response => response.json())
-      .then(({ data }) => {
-        dispatch(createUserSuccess(data));
-      })
+      .then(() => fetchUser(userData.username, userData.password)(dispatch))
       .catch(err => {
         dispatch(createUserFailure());
         console.log(err);

@@ -12,7 +12,7 @@ class CourseDetail extends Component {
   }
 
   render() {
-
+    
     return (
       <div>
         <div className="actions--bar">
