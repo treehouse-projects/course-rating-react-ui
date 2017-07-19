@@ -4,20 +4,15 @@ import { connect } from "react-redux";
 import { courseActions } from "../actions";
 
 class CreateCourse extends Component {
-  componentDidMount() {
-    // this.props.onMount(this.props.match.params.id);
-  }
-
   state = {
-    steps: [{}]
+    steps: [{ title: "", description: "" }]
   };
 
   changeHandler(formField, value) {
     this.setState({
       ...this.state,
       [formField]: value
-    });
-    console.log(this.state);
+    }, () => console.log(this.state));
   }
 
   stepChangeHandler(stepField, value, index) {
@@ -31,7 +26,7 @@ class CreateCourse extends Component {
           };
         }
       })
-    });
+    }, () => console.log(this.state));
   }
 
   addStep(index) {
@@ -39,7 +34,7 @@ class CreateCourse extends Component {
     // so increment the index to determine the new step number
     let newStepNumber = index + 1;
     // increment the step number for any steps that come after the new step
-    let steps = this.state.steps;
+    let {steps} = this.state;
     steps.forEach(step => {
       if (step.stepNumber >= newStepNumber) {
         step.stepNumber++;
@@ -129,24 +124,28 @@ class CreateCourse extends Component {
                     return (
                       <li key={i}>
                         <h3>
-                          {this.props.course.stepNumber}{" "}
+                          {(i + 1).toString()}{" "}
                           <input
                             type="text"
                             placeholder="Step Title..."
                             className="input-title course--steps--input"
                             onChange={e => {
                               this.stepChangeHandler(
-                                "stepTitle",
+                                "title",
                                 e.target.value,
                                 i
                               );
                             }}
-                            value={this.state.steps[i].stepTitle}
+                            value={this.state.steps[i].title}
                           />
                         </h3>
                         <textarea
                           placeholder="Step description..."
                           className="autogrow"
+                          onChange={e => {
+                            this.stepChangeHandler("description", e.target.value, i);
+                          }}
+                          value={this.state.steps[i].description}
                         />
                         <a
                           className="course--steps--add"
