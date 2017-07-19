@@ -33,9 +33,9 @@ class CourseDetail extends Component {
             <div className="course--description">
               <MultiLineText text={this.props.course.description} />
               <ol>
-                {this.props.course.steps.map(step => {
+                {this.props.course.steps.map((step, i) => {
                   return (
-                    <li>
+                    <li key={i}>
                       <h3>{ step.number } { step.title }</h3>
                       <MultiLineText text={step.description} />
                     </li>
