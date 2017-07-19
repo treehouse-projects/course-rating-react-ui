@@ -29,7 +29,6 @@ class CourseDetail extends Component {
             <div className="course--header">
               <h4 className="course--label">Course</h4>
               <Title>{this.props.course.title}</Title>
-              {console.log(this.props.course.title)}
               <h3 className="course--title">{this.props.course.title}</h3>
               <p>By {this.props.course.user.fullName}</p>
             </div>
