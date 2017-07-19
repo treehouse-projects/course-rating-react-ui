@@ -1,6 +1,6 @@
 import { authActions } from '../actionTypes';
 
-export function logout() {
+export function logOut() {
   return {
     type: authActions.LOG_OUT_USER,
     authentication: null
