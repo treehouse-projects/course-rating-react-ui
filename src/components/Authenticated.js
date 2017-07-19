@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 
 const Authenticated = props => {
     const {AuthComponent, NoAuthComponent} = props;
-    return props.auth ? <AuthComponent /> : <NoAuthComponent /> 
+    return props.auth ? <AuthComponent /> : (NoAuthComponent ? <NoAuthComponent /> : null)
 }
 
 

@@ -25,7 +25,6 @@ import RedirectHome from "./routes/RedirectHome";
 import Header from "./components/Header";
 import Authenticated from "./components/Authenticated";
 
-
 class App extends Component {
   render() {
     return (
