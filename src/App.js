@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
-import { Provider, connect } from "react-redux";
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Provider } from "react-redux";
 
 
 import store from "./store";
@@ -10,15 +10,13 @@ import Courses from "./containers/Courses";
 import CourseDetail from "./containers/CourseDetail";
 import CreateCourse from "./containers/CreateCourse";
 
-// Actions
-import { authActions } from "./actions";
-
 // Routes
 
 import EditCourseRoute from "./routes/EditCourseRoute";
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
 import RedirectHome from "./routes/RedirectHome";
+import LogOutRoute from "./routes/LogOutRoute";
 
 
 // Components
@@ -39,6 +37,7 @@ class App extends Component {
               <Route exact path='/courses/:id' component={CourseDetail} />
               <Authenticated path="/courses/:id/edit" AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
               <Route path='/new-course' component={CreateCourse} />
+              <Authenticated path='/logout' AuthComponent={LogOutRoute} NoAuthComponent={RedirectHome} />
             </Switch>
           </div>
         </BrowserRouter>

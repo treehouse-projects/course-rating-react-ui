@@ -4,9 +4,14 @@ import MultiLineText from "../components/MultiLineText";
 import Rating from "../components/Rating";
 import { connect } from "react-redux";
 import { courseActions } from "../actions";
+<<<<<<< HEAD
 import ReactMarkdown from "react-markdown";
 import { NavLink } from "react-router-dom";
 import EditCourse from "./EditCourse";
+=======
+import ReactMarkdown from 'react-markdown';
+import Title from "../components/Title";
+>>>>>>> 7a4c6fa37d308b0b9a83bcc3fc26e30dadf24a01
 
 class CourseDetail extends Component {
   componentDidMount() {
@@ -14,6 +19,10 @@ class CourseDetail extends Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 7a4c6fa37d308b0b9a83bcc3fc26e30dadf24a01
     return (
       <div>
         <div className="actions--bar">
@@ -33,12 +42,9 @@ class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              <h3 className="course--title">
-                {this.props.course.title}
-              </h3>
-              <p>
-                By {this.props.course.user.fullName}
-              </p>
+              <Title>{this.props.course.title}</Title>
+              <h3 className="course--title">{this.props.course.title}</h3>
+              <p>By {this.props.course.user.fullName}</p>
             </div>
             <div className="course--description">
               <MultiLineText text={this.props.course.description} />
