@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { courseActions } from "../actions";
 import ReactMarkdown from "react-markdown";
 import { NavLink } from "react-router-dom";
-import EditCourse from "./EditCourse";
+import Title from "../components/Title";
 
 class CourseDetail extends Component {
   componentDidMount() {
@@ -14,6 +14,7 @@ class CourseDetail extends Component {
   }
 
   render() {
+    
     return (
       <div>
         <div className="actions--bar">
@@ -33,12 +34,9 @@ class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              <h3 className="course--title">
-                {this.props.course.title}
-              </h3>
-              <p>
-                By {this.props.course.user.fullName}
-              </p>
+              <Title>{this.props.course.title}</Title>
+              <h3 className="course--title">{this.props.course.title}</h3>
+              <p>By {this.props.course.user.fullName}</p>
             </div>
             <div className="course--description">
               <MultiLineText text={this.props.course.description} />
