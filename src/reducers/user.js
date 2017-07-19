@@ -22,7 +22,7 @@ export default (state = getUser(), action) => {
   switch (action.type) {
     case authActions.LOG_OUT_USER:
       removeUser();
-      //Do not return
+      return null;
     case userActions.REQUEST_USER:
       removeUser();
       return state;

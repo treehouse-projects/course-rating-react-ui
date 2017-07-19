@@ -1,11 +1,20 @@
-// import React from 'react';
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-// import { Redirect } from 'react-router-dom';
+import { authActions } from '../actions';
 
-// import SignUp from '../containers/SignUp'
 
-// const SignUpRoute = (props) => (
-//   <Route path='/signup' component={SignUp}/>
-// );
 
-// export default SignUpRoute;
+const LogOutRoute = (props) => {
+    props.logOut();
+    return (<Redirect path="/"/>)
+};
+
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    logOut: () => authActions.logOut()
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(LogOutRoute);

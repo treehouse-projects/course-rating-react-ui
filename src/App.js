@@ -19,6 +19,7 @@ import EditCourseRoute from "./routes/EditCourseRoute";
 import SignInRoute from "./routes/SignInRoute";
 import SignUpRoute from "./routes/SignUpRoute";
 import RedirectHome from "./routes/RedirectHome";
+import LogOutRoute from "./routes/LogOutRoute";
 
 
 // Components
@@ -39,6 +40,7 @@ class App extends Component {
               <Route exact path='/courses/:id' component={CourseDetail} />
               <Authenticated path="/courses/:id/edit" AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
               <Route path='/new-course' component={CreateCourse} />
+              <Authenticated path='/logout' AuthComponent={LogOutRoute} NoAuthComponent={RedirectHome} />
             </Switch>
           </div>
         </BrowserRouter>
