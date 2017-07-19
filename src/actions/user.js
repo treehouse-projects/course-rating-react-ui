@@ -81,7 +81,10 @@ export function sendCreateUser(userData) {
       mode:'cors',
       body: JSON.stringify(userData)
     })
-      .then(() => fetchUser(userData.username, userData.password)(dispatch))
+      .then(() => {
+        console.log(userData);
+        fetchUser(userData.emailAddress, userData.password)(dispatch);
+      })
       .catch(err => {
         dispatch(createUserFailure());
         console.log(err);
