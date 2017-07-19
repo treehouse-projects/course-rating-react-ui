@@ -3,7 +3,9 @@ import { courseActions } from "../actionTypes";
 const defaultState = {
   reviews: [],
   steps: [],
-  user: {}
+  user: {},
+  description: '',
+  materialsNeeded: ''
 }
 
 export default (state = defaultState, action) => {
