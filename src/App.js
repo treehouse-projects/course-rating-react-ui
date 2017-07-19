@@ -9,7 +9,6 @@ import store from "./store";
 import Courses from "./containers/Courses";
 import SignUp from "./containers/SignUp";
 import SignIn from "./containers/SignIn";
-import CourseContainer from './containers/CourseContainer';
 import CourseDetail from "./containers/CourseDetail";
 import CreateCourse from "./containers/CreateCourse";
 
