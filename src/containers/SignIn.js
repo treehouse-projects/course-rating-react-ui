@@ -1,9 +1,9 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import Title from "../components/Title";
 import { userActions } from "../actions";
+import Title from "../components/Title";
+import SignInForm from '../components/SignInForm';
 
 const SignIn = props => (
       <div className="grid-33 centered signin">
@@ -12,21 +12,12 @@ const SignIn = props => (
 
         {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
 
-        <form>
-          <input type="email" placeholder="Email Address" />
-          <input type="password" placeholder="Password" />
-          <button onClick={e => { e.preventDefault(); props.submitSignIn(); }} className="button">Sign In</button>
-          <NavLink className="button button-secondary" to="/signup">
-            Sign Up
-          </NavLink>
-        </form>
+        <SignInForm onSubmit={props.submitSignIn} />
       </div>
     );
 
-const mapStateToProps = state => ({ ...state });
-
 const mapDispatchToProps = dispatch => bindActionCreators({
-  submitSignIn: () =>  userActions.fetchUser("sam@jones.com", "password")
+  submitSignIn: (email, password) =>  userActions.fetchUser(email, password)
 }, dispatch);
  
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

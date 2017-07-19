@@ -1,9 +1,10 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-//import basicAuth from "basic-auth";
 import { userActions } from "../actionTypes";
 import { authenticated } from "./auth";
 
+const unwrapUser = ({ data }) => data[0];
+    
 /*
 * GET /api/users
 */
@@ -27,23 +28,22 @@ export function requestUserFailure(err) {
   };
 }
 
-/*    TODO: AUTHORIZE USER LOGIC    */
-
 export function fetchUser(username, password) {
   return dispatch => {
-    dispatch(requestUser())
+    dispatch(requestUser());
     const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
     return fetch(`${apiRoot}/users`, {
       headers: {
-        "Authorization": authHeader
+        Authorization: authHeader
       }
     })
       .then(response => response.json())
-      .then(({ data }) => {
-        const user = data[0];
-        const {fullName, _id} = user;
-        dispatch(requestUserSuccess({fullName, _id}));
-      }).then(() => dispatch(authenticated(authHeader)))
+      .then(unwrapUser)
+      .then(user => {
+        const { fullName, _id } = user;
+        dispatch(requestUserSuccess({ fullName, _id }));
+      })
+      .then(() => dispatch(authenticated(authHeader)))
       .catch(err => {
         dispatch(requestUserFailure());
         console.log(err);
@@ -55,7 +55,6 @@ export function fetchUser(username, password) {
 * POST /api/users
 */
 
-//   TODO: TEST RESPONSE FOR LOCATION HEADER 
 export function createUser() {
   return {
     type: userActions.CREATE_USER
@@ -77,9 +76,9 @@ export function createUserFailure(err) {
 
 export function sendCreateUser(userData) {
   return dispatch => {
-    dispatch(createUser())
+    dispatch(createUser());
     return fetch(`${apiRoot}/users`, {
-      method: 'post',
+      method: "post",
       body: JSON.stringify(userData),
       headers: {
         "Content-Type": "application/json"
