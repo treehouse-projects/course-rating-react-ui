@@ -21,10 +21,9 @@ const jsonErrorPromise = response => {
   });
 };
 
-const dispatchValidationError = dispatch =>  err =>  {
-  console.log(err);
+const dispatchValidationError = dispatch => err => {
   dispatch(errorActions.raiseValidationError(err.errors));
-}
+};
 
 /*
 * GET /api/users
@@ -68,7 +67,15 @@ export function fetchUser(username, password) {
         dispatch(requestUserSuccess({ fullName, _id }));
       })
       .then(() => dispatch(authenticated(authHeader)))
-      .catch(dispatchValidationError(dispatch));
+      .catch(err =>
+        dispatchValidationError(dispatch)({
+          errors: {
+            Authentication: {
+              message: "Invalid email and/or password"
+            }
+          }
+        })
+      );
   };
 }
 
