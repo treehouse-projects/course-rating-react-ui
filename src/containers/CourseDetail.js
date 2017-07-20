@@ -133,7 +133,7 @@ class CourseDetail extends Component {
                 })}
               </ul>
               {
-                (this.props.course.user.fullName !== this.props.user.fullName)
+                (this.props.course.user.fullName !== this.props.course.user.fullName)
                  ? <Authenticated AuthComponent={ReviewForm} />
                  :  null
               }
