@@ -117,7 +117,7 @@ export function editCourseFailure(err) {
 export function sendEditCourse(courseData, authHeader) {
   return dispatch => {
     dispatch(editCourse());
-    return fetch(`${apiRoot}/courses/${courseData._id}/courses`, {
+    return fetch(`${apiRoot}/courses/${courseData._id}`, {
       method: "post",
       body: JSON.stringify(courseData),
       headers: {

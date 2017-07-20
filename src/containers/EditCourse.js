@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { courseActions } from "../actions";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import StepInput from "../components/StepInput";
 
 class EditCourse extends Component {
   state = {
-    steps: []
+    steps: [],
+    user: {}
   };
   componentDidMount() {
     this.props.onMount(this.props.match.params.id).then(({ course }) => {
@@ -71,6 +73,10 @@ class EditCourse extends Component {
       () => console.log(this.state)
     );
   }
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state)
+  }
   render() {
     return (
       <div>
@@ -106,18 +112,18 @@ class EditCourse extends Component {
                 placeholder="Course Title..."
                 className="input-title course--title--input"
                 onChange={e => {
-                  this.changeHandler("courseTitle", e.target.value);
+                  this.changeHandler("title", e.target.value);
                 }}
                 value={this.state.title}
               />
-              <p>By </p>
+              <p>By {this.state.user.fullName}</p>
             </div>
             <div className="course--description">
               <textarea
                 className="autogrow"
                 placeholder="Course description..."
                 onChange={e => {
-                  this.changeHandler("courseDescription", e.target.value);
+                  this.changeHandler("description", e.target.value);
                 }}
                 value={this.state.description}
               />
@@ -134,14 +140,22 @@ class EditCourse extends Component {
                         description={step.description}
                         addStep={() => this.addStep(i)}
                         removeStep={() => this.removeStep(i)}
-                        changeHandler={(stepField, value) => this.stepChangeHandler(stepField, value, i)}
+                        changeHandler={(stepField, value) =>
+                          this.stepChangeHandler(stepField, value, i)}
                       />
                     );
                   })}
                 </ol>
               </div>
-              <a className="button">Submit Changes</a>
-              <a className="button">Cancel</a>
+              <button className="button" onClick={this.onSubmit.bind(this)}>
+                Submit Changes
+              </button>
+              <NavLink
+                className="button button-secondary"
+                to={`/courses/${this.state.id}`}
+              >
+                Cancel
+              </NavLink>
             </div>
           </div>
 
@@ -154,7 +168,7 @@ class EditCourse extends Component {
                     type="text"
                     placeholder="Hours"
                     onChange={e => {
-                      this.changeHandler("hours", e.target.value);
+                      this.changeHandler("estimatedTime", e.target.value);
                     }}
                     value={this.state.estimatedTime}
                   />
@@ -164,7 +178,7 @@ class EditCourse extends Component {
                   <textarea
                     placeholder="List materials..."
                     onChange={e => {
-                      this.changeHandler("materials", e.target.value);
+                      this.changeHandler("materialsNeeded", e.target.value);
                     }}
                     value={this.state.materialsNeeded}
                   />
@@ -181,7 +195,8 @@ class EditCourse extends Component {
 const mapStateToProps = state => ({ ...state });
 
 const mapDispatchToProps = dispatch => ({
-  onMount: id => dispatch(courseActions.fetchCourse(id))
+  onMount: id => dispatch(courseActions.fetchCourse(id)),
+  onSubmit: course => dispatch(courseActions.sendEditCourse(course))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditCourse);
