@@ -11,6 +11,7 @@ import ValidationErrors  from "./ValidationErrors";
 import Header from "./Header";
 import ReviewForm from "./ReviewForm";
 import ActionBar from './ActionBar'
+import StepInput from './StepInput';
 
 export {
     CourseList,
@@ -25,5 +26,6 @@ export {
     Title,
     ValidationErrors,
     Header,
-    ActionBar
+    ActionBar, 
+    StepInput
 }

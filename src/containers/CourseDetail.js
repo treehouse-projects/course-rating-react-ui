@@ -36,8 +36,6 @@ class CourseDetail extends Component {
     return (
       <div>
         <ActionBar />
-        
-
         <div className="bounds course--detail">
           <div className="grid-66">
             <div className="course--header">
@@ -148,15 +146,3 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseDetail);
 
-// <div className="actions--bar">
-//           <div className="bounds">
-//             <div className="grid-100">
-//               <NavLink
-//                 className="button"
-//                 to={`/courses/${this.props.course._id}/edit`}
-//               >
-//                 Edit Course
-//               </NavLink>
-//             </div>
-//           </div>
-//         </div>

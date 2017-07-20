@@ -3,8 +3,9 @@ import { courseActions } from "../actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import Title from "../components/Title";
-import StepInput from "../components/StepInput";
+// import Title from "../components/Title";
+// import StepInput from "../components/StepInput";
+import { Title, StepInput, ActionBar } from '../components';
 
 class EditCourse extends Component {
   state = {
@@ -81,15 +82,7 @@ class EditCourse extends Component {
   render() {
     return (
       <div>
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              <a className="button" href="#">
-                Submit Changes
-              </a>
-            </div>
-          </div>
-        </div>
+        <ActionBar />
 
         <div className="bounds course--detail">
           <div>
