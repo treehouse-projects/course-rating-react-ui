@@ -5,11 +5,10 @@ import { errorActions } from "../actions";
 import { authenticated } from "./auth";
 
 const unwrapUser = ({ data }) => data[0];
-const createAuthHeader = (username, password) =>
-  `Basic ${btoa(`${username}:${password}`)}`;
+const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
 
 const checkForErrors = response => {
-  if (response.status !== 201) {
+  if (response.status !== 201 && response.status !== 200) {
     return jsonErrorPromise(response);
   }
   return response;
@@ -56,7 +55,7 @@ export function fetchUser(username, password) {
     return fetch(`${apiRoot}/users`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: authHeader
+        "Authorization": authHeader
       }
     })
       .then(checkForErrors)
