@@ -153,7 +153,7 @@ class CourseDetail extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({ course: state.course });
 
 const mapDispatchToProps = dispatch => ({
   onMount: id => dispatch(courseActions.fetchCourse(id))
