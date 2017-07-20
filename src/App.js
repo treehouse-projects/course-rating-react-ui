@@ -25,12 +25,12 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path='/' component={Courses} />
-              <Authenticated path="/signin" AuthComponent={RedirectHome} NoAuthComponent={SignIn} />
-              <Authenticated path="/signup" AuthComponent={RedirectHome} NoAuthComponent={SignUp} />
-              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourse} NoAuthComponent={RedirectHome} />
+              <Authenticated path="/signin" NoAuthComponent={SignIn} />
+              <Authenticated path="/signup" NoAuthComponent={SignUp} />
+              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourse} />
               <Route exact path='/courses/:id' component={CourseDetail} />
-              <Authenticated path='/new-course' AuthComponent={CreateCourse} NoAuthComponent={RedirectHome}/>
-              <Authenticated path='/logout' AuthComponent={LogOutRoute} NoAuthComponent={RedirectHome} />
+              <Authenticated path='/new-course' AuthComponent={CreateCourse} />
+              <Authenticated path='/logout' AuthComponent={LogOutRoute} />
             </Switch>
           </div>
         </BrowserRouter>
