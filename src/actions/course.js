@@ -157,7 +157,7 @@ export function sendCreateReview(courseId, review, authHeader) {
       }
     })
       .then(checkForErrors)
-      // .then(() => dispatch(redirectActions.redirectTo(`/courses/${courseId}`)))
+      .then(() => dispatch(redirectActions.redirectTo(`/courses/${courseId}`)))
       .catch(dispatchValidationError(dispatch));
   };
 }
