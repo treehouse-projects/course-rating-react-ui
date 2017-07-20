@@ -1,4 +1,4 @@
-import { authActions } from "../actionTypes";
+import { authActionTypes } from "../actionTypes";
 import Cookies from "js-cookie";
 
 function getAuthenticationHeader() {
@@ -20,10 +20,10 @@ function removeAuthenticationHeader() {
 
 export default (state = getAuthenticationHeader(), action) => {
   switch (action.type) {
-    case authActions.USER_AUTHENTICATED:
+    case authActionTypes.USER_AUTHENTICATED:
       setAuthenticationHeader(action.authentication);
       return action.authentication;
-    case authActions.LOG_OUT_USER:
+    case authActionTypes.LOG_OUT_USER:
       removeAuthenticationHeader();
       return null;
     default:

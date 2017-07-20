@@ -1,11 +1,15 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-import { userActions } from "../actionTypes";
+import { userActionTypes } from "../actionTypes";
 import { errorActions } from "../actions";
 import { authenticated } from "./auth";
 
 const unwrapUser = ({ data }) => data[0];
 const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
+
+const fetchUserBound = (dispatch) => {
+  return (email, password) => fetchUser(email, password)(dispatch)
+}
 
 const checkForErrors = response => {
   if (response.status !== 201 && response.status !== 200) {
@@ -20,8 +24,8 @@ const jsonErrorPromise = response => {
   });
 };
 
-const dispatchValidationError = dispatch => err => {
-  dispatch(errorActions.raiseValidationError(err.errors));
+const dispatchValidationError = dispatch => ({ errors }) => {
+  dispatch(errorActions.raiseValidationError(errors));
 };
 
 /*
@@ -30,20 +34,20 @@ const dispatchValidationError = dispatch => err => {
 
 export function requestUser() {
   return {
-    type: userActions.REQUEST_USER
+    type: userActionTypes.REQUEST_USER
   };
 }
 
 export function requestUserSuccess(user) {
   return {
-    type: userActions.REQUEST_USER_SUCCESS,
+    type: userActionTypes.REQUEST_USER_SUCCESS,
     user
   };
 }
 
 export function requestUserFailure(err) {
   return {
-    type: userActions.REQUEST_USER_FAILURE,
+    type: userActionTypes.REQUEST_USER_FAILURE,
     err: err
   };
 }
@@ -53,18 +57,15 @@ export function fetchUser(username, password) {
     dispatch(requestUser());
     const authHeader = createAuthHeader(username, password);
     return fetch(`${apiRoot}/users`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": authHeader
-      }
-    })
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": authHeader
+        }
+      })
       .then(checkForErrors)
       .then(response => response.json())
       .then(unwrapUser)
-      .then(user => {
-        const { fullName, _id } = user;
-        dispatch(requestUserSuccess({ fullName, _id }));
-      })
+      .then(({ fullName, _id }) => dispatch(requestUserSuccess({ fullName, _id })))
       .then(() => dispatch(authenticated(authHeader)))
       .catch(err =>
         dispatchValidationError(dispatch)({
@@ -84,31 +85,29 @@ export function fetchUser(username, password) {
 
 export function createUser() {
   return {
-    type: userActions.CREATE_USER
+    type: userActionTypes.CREATE_USER
   };
 }
 
 export function createUserFailure(err) {
   return {
-    type: userActions.CREATE_USER_FAILURE,
+    type: userActionTypes.CREATE_USER_FAILURE,
     err: err
   };
 }
-export function sendCreateUser(userData) {
+export function sendCreateUser(user) {
   return dispatch => {
     dispatch(createUser());
     return fetch(`${apiRoot}/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      mode: "cors",
-      body: JSON.stringify(userData)
-    })
-      .then(checkForErrors)
-      .then(() => {
-        fetchUser(userData.emailAddress, userData.password)(dispatch);
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+        body: JSON.stringify(user)
       })
+      .then(checkForErrors)
+      .then(() => fetchUserBound(dispatch)(user.emailAddress, user.password))
       .catch(dispatchValidationError(dispatch));
   };
 }

@@ -1,12 +1,12 @@
-import { coursesActions } from "../actionTypes";
+import { coursesActionTypes } from "../actionTypes";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case coursesActions.REQUEST_COURSE_LIST:
+    case coursesActionTypes.REQUEST_COURSE_LIST:
       return state;
-    case coursesActions.REQUEST_COURSE_LIST_SUCCESS:
+    case coursesActionTypes.REQUEST_COURSE_LIST_SUCCESS:
       return action.courses;
-    case coursesActions.REQUEST_COURSE_LIST_FAILURE:
+    case coursesActionTypes.REQUEST_COURSE_LIST_FAILURE:
       return state;
     default:
       return state;

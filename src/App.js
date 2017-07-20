@@ -9,12 +9,11 @@ import store from "./store";
 import Courses from "./containers/Courses";
 import CourseDetail from "./containers/CourseDetail";
 import CreateCourse from "./containers/CreateCourse";
+import EditCourse from './containers/EditCourse';
+import SignIn from './containers/SignIn';
+import SignUp from './containers/SignUp';
 
 // Routes
-
-import EditCourseRoute from "./routes/EditCourseRoute";
-import SignInRoute from "./routes/SignInRoute";
-import SignUpRoute from "./routes/SignUpRoute";
 import RedirectHome from "./routes/RedirectHome";
 import LogOutRoute from "./routes/LogOutRoute";
 
@@ -32,11 +31,11 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path='/' component={Courses} />
-              <Authenticated path="/signin" AuthComponent={RedirectHome} NoAuthComponent={SignInRoute} />
-              <Authenticated path="/signup" AuthComponent={RedirectHome} NoAuthComponent={SignUpRoute} />
+              <Authenticated path="/signin" AuthComponent={RedirectHome} NoAuthComponent={SignIn} />
+              <Authenticated path="/signup" AuthComponent={RedirectHome} NoAuthComponent={SignUp} />
+              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourse} NoAuthComponent={RedirectHome} />
               <Route exact path='/courses/:id' component={CourseDetail} />
-              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
-              <Route path='/new-course' component={CreateCourse} />
+              <Authenticated path='/new-course' AuthComponent={CreateCourse} NoAuthComponent={RedirectHome}/>
               <Authenticated path='/logout' AuthComponent={LogOutRoute} NoAuthComponent={RedirectHome} />
             </Switch>
           </div>

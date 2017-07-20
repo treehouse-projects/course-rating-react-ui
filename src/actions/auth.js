@@ -1,15 +1,15 @@
-import { authActions } from '../actionTypes';
+import { authActionTypes } from '../actionTypes';
 
 export function logOut() {
   return {
-    type: authActions.LOG_OUT_USER,
+    type: authActionTypes.LOG_OUT_USER,
     authentication: null
   };
 }
 
 export function authenticated(authentication) {
   return {
-    type: authActions.USER_AUTHENTICATED,
+    type: authActionTypes.USER_AUTHENTICATED,
     authentication
   };
 }
