@@ -25,7 +25,7 @@ class CourseList extends Component {
         {this.props.courses.map(course =>
           <CourseCard key={course._id} course={course} />
         )}
-        <Authenticated AuthComponent={NewCourseCard} />
+        <Authenticated AuthComponent={NewCourseCard} NoAuthComponent={null} />
       </div>
     );
   }
