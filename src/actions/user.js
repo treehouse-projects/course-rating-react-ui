@@ -1,10 +1,30 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
 import { userActions } from "../actionTypes";
+import { errorActions } from "../actions";
 import { authenticated } from "./auth";
 
 const unwrapUser = ({ data }) => data[0];
-const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`;
+const createAuthHeader = (username, password) =>
+  `Basic ${btoa(`${username}:${password}`)}`;
+
+const checkForErrors = response => {
+  if (response.status !== 201) {
+    return jsonErrorPromise(response);
+  }
+  return response;
+};
+
+const jsonErrorPromise = response => {
+  return new Promise((resolve, reject) => {
+    response.json().then(reject);
+  });
+};
+
+const dispatchValidationError = dispatch =>  err =>  {
+  console.log(err);
+  dispatch(errorActions.raiseValidationError(err.errors));
+}
 
 /*
 * GET /api/users
@@ -36,10 +56,11 @@ export function fetchUser(username, password) {
     const authHeader = createAuthHeader(username, password);
     return fetch(`${apiRoot}/users`, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: authHeader
       }
-      })
+    })
+      .then(checkForErrors)
       .then(response => response.json())
       .then(unwrapUser)
       .then(user => {
@@ -47,9 +68,7 @@ export function fetchUser(username, password) {
         dispatch(requestUserSuccess({ fullName, _id }));
       })
       .then(() => dispatch(authenticated(authHeader)))
-      .catch(err => {
-        dispatch(requestUserFailure(err));
-      });
+      .catch(dispatchValidationError(dispatch));
   };
 }
 
@@ -72,26 +91,18 @@ export function createUserFailure(err) {
 export function sendCreateUser(userData) {
   return dispatch => {
     dispatch(createUser());
-    console.log(userData);
     return fetch(`${apiRoot}/users`, {
       method: "POST",
       headers: {
-          'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
-      mode:'cors',
+      mode: "cors",
       body: JSON.stringify(userData)
     })
-<<<<<<< HEAD
+      .then(checkForErrors)
       .then(() => {
-        console.log(userData);
         fetchUser(userData.emailAddress, userData.password)(dispatch);
       })
-=======
-      .then(() => fetchUser(userData.emailAddress, userData.password)(dispatch))
->>>>>>> 06e056937efa725a01085b50458f71b6ef7033ac
-      .catch(err => {
-        dispatch(createUserFailure());
-        console.log(err);
-      });
+      .catch(dispatchValidationError(dispatch));
   };
 }
