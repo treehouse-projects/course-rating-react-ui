@@ -8,7 +8,7 @@ import CourseCard from "./CourseCard";
 import NewCourseCard from "./NewCourseCard";
 import Authenticated from "../Authenticated";
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({ courses: state.courses });
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
