@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 // Not currently used
 import { courseActions } from "../actions";
 import { NavLink } from "react-router-dom";
-import StepInput from "../components/StepInput";
+import { StepInput, ValidationErrors, ActionBar } from "../components";
 
 class CreateCourse extends Component {
   state = {
@@ -22,8 +22,7 @@ class CreateCourse extends Component {
           { title: "", description: "" },
           ...this.state.steps.slice(index + 1)
         ]
-      },
-      () => console.log(this.state)
+      }
     );
   }
   removeStep(index) {
@@ -34,8 +33,7 @@ class CreateCourse extends Component {
           ...this.state.steps.slice(0, index),
           ...this.state.steps.slice(index + 1)
         ]
-      },
-      () => console.log(this.state)
+      }
     );
   }
   changeHandler(formField, value) {
@@ -43,8 +41,7 @@ class CreateCourse extends Component {
       {
         ...this.state,
         [formField]: value
-      },
-      () => console.log(this.state)
+      }
     );
   }
 
@@ -61,13 +58,13 @@ class CreateCourse extends Component {
           }
           return step;
         })
-      },
-      () => console.log(this.state)
+      }
     );
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    console.log(this.state);
+    this.props.onSubmit(this.state, this.props.auth);
   }
 
   render() {
@@ -76,27 +73,15 @@ class CreateCourse extends Component {
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
-              <a className="button" href="/new-course">
+              <button className="button" onClick={this.onSubmit.bind(this)}>
                 Create Course
-              </a>
+              </button>
             </div>
           </div>
         </div>
 
         <div className="bounds course--detail">
-          <div>
-            <h2 className="validation--errors--label">Validation errors</h2>
-            <div className="validation-errors">
-              <ul>
-                <li className="ng-binding ng-scope">description is required</li>
-                <li className="ng-binding ng-scope">title is required</li>
-                <li className="ng-binding ng-scope">
-                  Step requires a description
-                </li>
-                <li className="ng-binding ng-scope">Step requires a title</li>
-              </ul>
-            </div>
-          </div>
+          <ValidationErrors />
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
@@ -141,7 +126,9 @@ class CreateCourse extends Component {
                   })}
                 </ol>
               </div>
-              <a className="button">Save Course</a>
+              <a className="button" onClick={this.onSubmit.bind(this)}>
+                Save Course
+              </a>
               <NavLink className="button button-secondary" to={`/`}>
                 Cancel
               </NavLink>
@@ -181,6 +168,12 @@ class CreateCourse extends Component {
   }
 }
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({ auth: state.auth });
 
-export default connect(mapStateToProps)(CreateCourse);
+const mapDispatchToProps = dispatch => ({
+  onMount: id => dispatch(courseActions.fetchCourse(id)),
+  onSubmit: (course, auth) =>
+    dispatch(courseActions.sendCreateCourse(course, auth))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCourse);

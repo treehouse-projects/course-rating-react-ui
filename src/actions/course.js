@@ -68,15 +68,15 @@ export function sendCreateCourse(course, authHeader) {
     dispatch(createCourse());
     return fetch(`${apiRoot}/courses`, {
       method: "post",
-      body: { data: course },
+      body: JSON.stringify(course),
       headers: {
         "Content-Type": "application/json",
         Authorization: authHeader
       }
     })
-      .then(response => response.json())
-      .then(({ data }) => dispatch(createCourseSuccess(data)))
-      .catch(err => dispatch(createCourseFailure(err)));
+      .then(checkForErrors)
+      .then(() => dispatch(redirectActions.redirectTo(`/`)))
+      .catch(dispatchValidationError(dispatch));
   };
 }
 
@@ -104,7 +104,6 @@ export function editCourseFailure(err) {
   };
 }
 
-//    TODO: TEST RESPONSE FOR LOCATION HEADER
 export function sendEditCourse(course, authHeader) {
   return dispatch => {
     dispatch(editCourse());

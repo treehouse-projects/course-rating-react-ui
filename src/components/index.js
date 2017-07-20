@@ -12,6 +12,7 @@ import ValidationErrors  from "./ValidationErrors";
 import Header from "./Header";
 import ReviewForm from "./ReviewForm";
 import RedirectManager from "./RedirectManager";
+import ActionBar from "./ActionBar";
 
 export {
     CourseList,
@@ -27,5 +28,6 @@ export {
     Title,
     ValidationErrors,
     Header,
-    RedirectManager
+    RedirectManager,
+    ActionBar
 }
