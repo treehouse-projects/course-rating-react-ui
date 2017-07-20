@@ -145,10 +145,10 @@ export function createReviewFailure(err) {
   };
 }
 
-export function sendCreateReview(id, review, authHeader) {
+export function sendCreateReview(courseId, review, authHeader) {
   return dispatch => {
     dispatch(createReview());
-    return fetch(`${apiRoot}/courses/${id}/reviews`, {
+    return fetch(`${apiRoot}/courses/${courseId}/reviews`, {
       method: "post",
       body: JSON.stringify(review),
       headers: {
@@ -156,8 +156,8 @@ export function sendCreateReview(id, review, authHeader) {
         Authorization: authHeader
       }
     })
-      .then(response => response.json())
-      .then(({ data }) => dispatch(createReviewSuccess(data)))
-      .catch(err => dispatch(createReviewFailure(err)));
+      .then(checkForErrors)
+      // .then(() => dispatch(redirectActions.redirectTo(`/courses/${courseId}`)))
+      .catch(dispatchValidationError(dispatch));
   };
 }

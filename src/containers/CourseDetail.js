@@ -129,11 +129,7 @@ class CourseDetail extends Component {
                   );
                 })}
               </ul>
-              {
-                (this.props.auth && this.props.course.user.id !== this.props.user.id)
-                 ? <ReviewForm />
-                 :  null
-              }
+              <ReviewForm /> 
             </div>
 
             <div className="grid-25 grid-right">
