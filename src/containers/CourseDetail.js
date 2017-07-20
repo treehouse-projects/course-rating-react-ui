@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactMarkdown from 'react-markdown';
+import { ActionBar } from '../components';
 
 import { courseActions } from "../actions";
 import { Title, Rating, MultiLineText, Review, ReviewForm, Authenticated } from "../components";
@@ -34,18 +35,8 @@ class CourseDetail extends Component {
 
     return (
       <div>
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              <NavLink
-                className="button"
-                to={`/courses/${this.props.course._id}/edit`}
-              >
-                Edit Course
-              </NavLink>
-            </div>
-          </div>
-        </div>
+        <ActionBar />
+        
 
         <div className="bounds course--detail">
           <div className="grid-66">
@@ -156,3 +147,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseDetail);
+
+// <div className="actions--bar">
+//           <div className="bounds">
+//             <div className="grid-100">
+//               <NavLink
+//                 className="button"
+//                 to={`/courses/${this.props.course._id}/edit`}
+//               >
+//                 Edit Course
+//               </NavLink>
+//             </div>
+//           </div>
+//         </div>
