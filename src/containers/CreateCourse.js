@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 // import Step from '../components/Step';
 import { connect } from "react-redux";
+
+// Not currently used
 import { courseActions } from "../actions";
 
 class CreateCourse extends Component {
@@ -19,6 +21,7 @@ class CreateCourse extends Component {
     this.setState({
       ...this.state,
       steps: this.state.steps.map((step, i) => {
+        // needs a value returned if i !== index
         if (i === index) {
           return {
             ...this.state.steps[i],
@@ -72,7 +75,7 @@ class CreateCourse extends Component {
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
-              <a className="button" href="#">
+              <a className="button" href="/new-course">
                 Create Course
               </a>
             </div>

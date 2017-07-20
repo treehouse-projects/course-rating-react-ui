@@ -6,3 +6,10 @@ export function raiseValidationError(validationErrors) {
         errors: validationErrors
     }
 }
+
+export function clearValidationErrors() {
+    return {
+        type: errorsActionTypes.CLEAR_VALIDATION_ERRORS,
+        errors: {}
+    }
+}
