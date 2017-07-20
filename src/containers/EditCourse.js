@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import { courseActions } from "../actions";
 import { connect } from "react-redux";
 
+import StepInput from "../components/StepInput";
+
 class EditCourse extends Component {
   state = {
-    steps: [
-      {
-        title: this.props.course.title,
-        description: this.props.course.description
-      }
-    ]
+    steps: []
   };
   componentDidMount() {
     this.props.onMount(this.props.match.params.id).then(({ course }) => {
@@ -21,6 +18,31 @@ class EditCourse extends Component {
         () => console.log(this.state)
       );
     });
+  }
+  addStep(index) {
+    this.setState(
+      {
+        ...this.state,
+        steps: [
+          ...this.state.steps.slice(0, index + 1),
+          { id: "hoop", title: "", description: "" },
+          ...this.state.steps.slice(index + 1)
+        ]
+      },
+      () => console.log(this.state)
+    );
+  }
+  removeStep(index) {
+    this.setState(
+      {
+        ...this.state,
+        steps: [
+          ...this.state.steps.slice(0, index),
+          ...this.state.steps.slice(index + 1)
+        ]
+      },
+      () => console.log(this.state)
+    );
   }
   changeHandler(formField, value) {
     this.setState(
@@ -37,20 +59,19 @@ class EditCourse extends Component {
       {
         ...this.state,
         steps: this.state.steps.map((step, i) => {
-          console.log(step, i);
-          if (i === index) {
+          if (index === i) {
             return {
-              ...this.state.steps[i],
+              ...step,
               [stepField]: value
             };
           }
+          return step;
         })
       },
       () => console.log(this.state)
     );
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <div className="actions--bar">
@@ -104,57 +125,17 @@ class EditCourse extends Component {
                 <h2>Add steps</h2>
                 {/* STEPS */}
                 <ol>
-                  {this.state.steps.map((step, i) => {
+                  {this.state.steps.map((step, i, arr) => {
                     return (
-                      <li key={"step_" + i}>
-                        <h3>
-                          {" "}<input
-                            type="text"
-                            placeholder="Step Title..."
-                            className="input-title course--steps--input"
-                            onChange={e => {
-                              this.stepChangeHandler(
-                                "title",
-                                e.target.value,
-                                i
-                              );
-                            }}
-                            value={step.title}
-                          />
-                        </h3>
-                        <textarea
-                          placeholder="Step description..."
-                          className="autogrow"
-                          onChange={e => {
-                            this.stepChangeHandler(
-                              "description",
-                              e.target.value,
-                              i
-                            );
-                          }}
-                          value={step.description}
-                        />
-                        <a
-                          className="course--steps--add"
-                          onClick={() => this.addStep(i)}
-                        >
-                          <svg
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 13 13"
-                            className="add"
-                          >
-                            <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 " />
-                          </svg>
-                          Add step...
-                        </a>
-                        <a
-                          className="course--steps--remove"
-                          onClick={() => this.removeStep(i)}
-                        >
-                          Remove
-                        </a>
-                      </li>
+                      <StepInput
+                        key={i}
+                        id={step._id}
+                        title={step.title}
+                        description={step.description}
+                        addStep={() => this.addStep(i)}
+                        removeStep={() => this.removeStep(i)}
+                        changeHandler={(stepField, value) => this.stepChangeHandler(stepField, value, i)}
+                      />
                     );
                   })}
                 </ol>
