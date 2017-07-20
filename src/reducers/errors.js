@@ -5,7 +5,7 @@ export default (state = {}, action) => {
     case errorsActionTypes.VALIDATION_ERROR_RAISED:
       return {...state, validationErrors: action.errors };
     case errorsActionTypes.CLEAR_VALIDATION_ERRORS:
-      return action.errors;
+      return {...state, validationErrors: null };
     default:
       return state;
   }
