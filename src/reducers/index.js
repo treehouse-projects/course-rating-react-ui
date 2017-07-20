@@ -5,6 +5,7 @@ import course from "./course";
 import auth from "./auth";
 import user from "./user";
 import breadcrumb from "./breadcrumb";
+import errors from "./errors";
 
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   course,
   user,
   auth,
-  breadcrumb
+  breadcrumb,
+  errors
 });
 
 export default rootReducer;

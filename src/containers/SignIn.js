@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { userActions } from "../actions";
 import Title from "../components/Title";
 import SignInForm from "../components/SignInForm";
+import ValidationErrors from "../components/ValidationErrors";
 
 const SignIn = props =>
   <div className="grid-33 centered signin">
     <Title>Sign In</Title>
     <h1>Sign In</h1>
-
+    <ValidationErrors />
     {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
 
     <SignInForm onSubmit={props.submitSignIn} />

@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom";
 class SignInForm extends React.Component {
   state = {
     email: "",
-    password: "",
-    disabled: false
+    password: ""
   };
   render() {
     return (
@@ -28,7 +27,7 @@ class SignInForm extends React.Component {
           value={this.state.password}
           onChange={e => this.setState({ password: e.target.value })}
         />
-        <button className="button" disabled={this.state.disabled}>
+        <button className="button">
           Sign In
         </button>
         <NavLink className="button button-secondary" to="/signup">
