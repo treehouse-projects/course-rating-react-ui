@@ -126,6 +126,7 @@ class CourseDetail extends Component {
                       review={r.review}
                       date={r.postedOn}
                       rating={r.rating}
+                      auth={this.props.auth}
                       removeReview={() => this.removeReview(i)}
                       key={i}
                     />
@@ -133,7 +134,7 @@ class CourseDetail extends Component {
                 })}
               </ul>
               {
-                (this.props.course.user.fullName !== this.props.course.user.fullName)
+                (this.props.course.user.fullName !== this.props.user.fullName)
                  ? <Authenticated AuthComponent={ReviewForm} />
                  :  null
               }
