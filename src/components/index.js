@@ -6,10 +6,12 @@ import Review  from "./Review";
 import SignInForm  from "./SignInForm";
 import SignUpForm  from "./SignUpForm";
 import Step  from "./Step";
+import StepInput  from "./StepInput";
 import Title  from "./Title";
 import ValidationErrors  from "./ValidationErrors";
 import Header from "./Header";
 import ReviewForm from "./ReviewForm";
+import RedirectManager from "./RedirectManager";
 
 export {
     CourseList,
@@ -21,7 +23,9 @@ export {
     SignInForm,
     SignUpForm,
     Step,
+    StepInput,
     Title,
     ValidationErrors,
-    Header
+    Header,
+    RedirectManager
 }

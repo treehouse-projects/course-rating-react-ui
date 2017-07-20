@@ -1,8 +1,8 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
 import { userActionTypes } from "../actionTypes";
-import { errorActions } from "../actions";
 import { authenticated } from "./auth";
+import { checkForErrors, dispatchValidationError } from './util'
 
 const unwrapUser = ({ data }) => data[0];
 const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
@@ -11,22 +11,6 @@ const fetchUserBound = (dispatch) => {
   return (email, password) => fetchUser(email, password)(dispatch)
 }
 
-const checkForErrors = response => {
-  if (response.status !== 201 && response.status !== 200) {
-    return jsonErrorPromise(response);
-  }
-  return response;
-};
-
-const jsonErrorPromise = response => {
-  return new Promise((resolve, reject) => {
-    response.json().then(reject);
-  });
-};
-
-const dispatchValidationError = dispatch => ({ errors }) => {
-  dispatch(errorActions.raiseValidationError(errors));
-};
 
 /*
 * GET /api/users

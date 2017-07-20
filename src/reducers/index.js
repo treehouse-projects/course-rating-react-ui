@@ -6,6 +6,7 @@ import auth from "./auth";
 import user from "./user";
 import breadcrumb from "./breadcrumb";
 import errors from "./errors";
+import redirect from "./redirect";
 
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   user,
   auth,
   breadcrumb,
-  errors
+  errors,
+  redirect
 });
 
 export default rootReducer;

@@ -2,81 +2,65 @@ import React, { Component } from "react";
 import { courseActions } from "../actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-import Title from "../components/Title";
-import StepInput from "../components/StepInput";
+import { Title, StepInput, ValidationErrors } from "../components";
 
 class EditCourse extends Component {
   state = {
+    title: '',
     steps: [],
     user: {}
   };
   componentDidMount() {
     this.props.onMount(this.props.match.params.id).then(({ course }) => {
-      this.setState(
-        {
-          ...this.state,
-          ...course
-        },
-        () => console.log(this.state)
-      );
+      this.setState({
+        ...this.state,
+        ...course
+      });
     });
   }
   addStep(index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: [
-          ...this.state.steps.slice(0, index + 1),
-          { title: "", description: "" },
-          ...this.state.steps.slice(index + 1)
-        ]
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      ...this.state,
+      steps: [
+        ...this.state.steps.slice(0, index + 1),
+        { title: "", description: "" },
+        ...this.state.steps.slice(index + 1)
+      ]
+    });
   }
   removeStep(index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: [
-          ...this.state.steps.slice(0, index),
-          ...this.state.steps.slice(index + 1)
-        ]
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      ...this.state,
+      steps: [
+        ...this.state.steps.slice(0, index),
+        ...this.state.steps.slice(index + 1)
+      ]
+    });
   }
   changeHandler(formField, value) {
-    this.setState(
-      {
-        ...this.state,
-        [formField]: value
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      ...this.state,
+      [formField]: value
+    });
   }
 
   stepChangeHandler(stepField, value, index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: this.state.steps.map((step, i) => {
-          if (index === i) {
-            return {
-              ...step,
-              [stepField]: value
-            };
-          }
-          return step;
-        })
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      ...this.state,
+      steps: this.state.steps.map((step, i) => {
+        if (index === i) {
+          return {
+            ...step,
+            [stepField]: value
+          };
+        }
+        return step;
+      })
+    });
   }
   onSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state)
+    this.props.onSubmit(this.state, this.props.auth);
   }
   render() {
     return (
@@ -84,31 +68,25 @@ class EditCourse extends Component {
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
-              <a className="button" href="#">
+              <button
+                onClick={this.onSubmit.bind(this)}
+                className="button"
+                href="#"
+              >
                 Submit Changes
-              </a>
+              </button>
             </div>
           </div>
         </div>
 
         <div className="bounds course--detail">
-          <div>
-            <h2 className="validation--errors--label">Validation errors</h2>
-            <div className="validation-errors">
-              <ul>
-                <li className="ng-binding ng-scope">description is required</li>
-                <li className="ng-binding ng-scope">title is required</li>
-                <li className="ng-binding ng-scope">
-                  Step requires a description
-                </li>
-                <li className="ng-binding ng-scope">Step requires a title</li>
-              </ul>
-            </div>
-          </div>
+          <ValidationErrors />
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              <Title>{this.props.course.title}</Title>
+              <Title>
+                {this.state.title}
+              </Title>
               <input
                 type="text"
                 placeholder="Course Title..."
@@ -118,7 +96,9 @@ class EditCourse extends Component {
                 }}
                 value={this.state.title}
               />
-              <p>By {this.state.user.fullName}</p>
+              <p>
+                By {this.state.user.fullName}
+              </p>
             </div>
             <div className="course--description">
               <textarea
@@ -194,11 +174,12 @@ class EditCourse extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({ ...state });
+const mapStateToProps = state => ({ auth: state.auth });
 
 const mapDispatchToProps = dispatch => ({
   onMount: id => dispatch(courseActions.fetchCourse(id)),
-  onSubmit: course => dispatch(courseActions.sendEditCourse(course))
+  onSubmit: (course, auth) =>
+    dispatch(courseActions.sendEditCourse(course, auth))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditCourse);

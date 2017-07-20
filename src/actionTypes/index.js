@@ -4,6 +4,7 @@ import * as authActionTypes from './auth';
 import * as userActionTypes from './user';
 import * as breadCrumbActionTypes from './breadcrumb';
 import * as errorsActionTypes from './errors';
+import * as redirectActionTypes from './redirect';
 
 export {
     courseActionTypes,
@@ -11,5 +12,6 @@ export {
     authActionTypes,
     userActionTypes,
     breadCrumbActionTypes,
-    errorsActionTypes
+    errorsActionTypes,
+    redirectActionTypes
 };

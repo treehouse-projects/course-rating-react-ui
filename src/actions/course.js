@@ -1,8 +1,8 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-
+import { checkForErrors, dispatchValidationError } from "./util";
 import { courseActionTypes } from "../actionTypes";
-
+import { redirectActions } from '../actions'
 /*
 * GET /api/courses/:id
 */
@@ -33,9 +33,9 @@ export function fetchCourse(id) {
     return fetch(`${apiRoot}/courses/${id}`, {
       headers: { "Content-Type": "application/json" }
     })
-    .then(response => response.json())
-    .then(({ data }) => dispatch(requestCourseSuccess(data[0])))
-    .catch(err => dispatch(requestCourseFailure(err)));
+      .then(response => response.json())
+      .then(({ data }) => dispatch(requestCourseSuccess(data[0])))
+      .catch(err => dispatch(requestCourseFailure(err)));
   };
 }
 
@@ -71,12 +71,12 @@ export function sendCreateCourse(course, authHeader) {
       body: { data: course },
       headers: {
         "Content-Type": "application/json",
-        "Authorization": authHeader
+        Authorization: authHeader
       }
     })
-    .then(response => response.json())
-    .then(({ data }) => dispatch(createCourseSuccess(data)))
-    .catch(err => dispatch(createCourseFailure(err)));
+      .then(response => response.json())
+      .then(({ data }) => dispatch(createCourseSuccess(data)))
+      .catch(err => dispatch(createCourseFailure(err)));
   };
 }
 
@@ -109,16 +109,16 @@ export function sendEditCourse(course, authHeader) {
   return dispatch => {
     dispatch(editCourse());
     return fetch(`${apiRoot}/courses/${course._id}`, {
-      method: "post",
+      method: "put",
       body: JSON.stringify(course),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": authHeader
+        Authorization: authHeader
       }
     })
-    .then(response => response.json())
-    .then(({ data }) => dispatch(editCourseSuccess(data)))
-    .catch(err => dispatch(editCourseFailure(err)));
+      .then(checkForErrors)
+      .then(() => dispatch(redirectActions.redirectTo(`/courses/${course._id}`)))
+      .catch(dispatchValidationError(dispatch));
   };
 }
 
@@ -154,11 +154,11 @@ export function sendCreateReview(id, review, authHeader) {
       body: JSON.stringify(review),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": authHeader
+        Authorization: authHeader
       }
     })
-    .then(response => response.json())
-    .then(({ data }) => dispatch(createReviewSuccess(data)))
-    .catch(err => dispatch(createReviewFailure(err)));
+      .then(response => response.json())
+      .then(({ data }) => dispatch(createReviewSuccess(data)))
+      .catch(err => dispatch(createReviewFailure(err)));
   };
 }
