@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Review from "../components/Review";
 import MultiLineText from "../components/MultiLineText";
 import Rating from "../components/Rating";
-import { connect } from "react-redux";
-import { courseActions } from "../actions";
 import ReactMarkdown from "react-markdown";
 import { NavLink } from "react-router-dom";
 import Title from "../components/Title";
@@ -26,7 +24,7 @@ class CourseDetail extends Component {
           <div className="bounds">
             <div className="grid-100">
               <NavLink
-                className="button button-secondary"
+                className="button"
                 to={`/courses/${this.props.course._id}/edit`}
               >
                 Edit Course
