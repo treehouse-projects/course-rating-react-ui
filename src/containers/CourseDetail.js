@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import Review from '../components/Review';
 import MultiLineText from '../components/MultiLineText';
 import Rating from '../components/Rating';
-import { connect } from "react-redux";
-import { courseActions } from "../actions";
 import ReactMarkdown from 'react-markdown';
 import Title from "../components/Title";
+import Authenticated from "../components/Authenticated";
+import ReviewForm from '../components/ReviewForm';
+
+import { connect } from "react-redux";
+import { courseActions } from "../actions";
 
 class CourseDetail extends Component {
   componentDidMount() {
@@ -80,7 +83,6 @@ class CourseDetail extends Component {
               <h2>{this.props.course.reviews.length} Reviews</h2>
 
               <ul className="course--reviews--list">
-                {/* REVIEWS */}
                 {this.props.course.reviews.map(r => {
                   return <Review name={r.user.fullName}
                                  review={r.review}
@@ -89,17 +91,11 @@ class CourseDetail extends Component {
                                  key={r.id} />
                 })}
               </ul>
-
-              <form className="course--reviews--form">
-                <h3>Give your review</h3>
-                {/*<validation-errors ng-show="vm.hasUserReviewValidationErrors"
-              errors="vm.userReviewValidationErrors"></validation-errors>
-            <rating allow-edit="true" value="vm.userReview.rating"></rating>*/}
-                <fieldset>
-                  <textarea placeholder="Your review..." />
-                </fieldset>
-                <button className="button">Post Review</button>
-              </form>
+              {
+                (this.props.course.user.fullName !== this.props.user.fullName)
+                 ? <Authenticated AuthComponent={ReviewForm} />
+                 :  null
+              }
             </div>
 
             <div className="grid-25 grid-right">
