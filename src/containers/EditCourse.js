@@ -65,19 +65,7 @@ class EditCourse extends Component {
   render() {
     return (
       <div>
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              <button
-                onClick={this.onSubmit.bind(this)}
-                className="button"
-                href="#"
-              >
-                Submit Changes
-              </button>
-            </div>
-          </div>
-        </div>
+        <Authenticated AuthComponent={ActionBar} NoAuthCompoment={null} />
 
         <div className="bounds course--detail">
           <ValidationErrors />
