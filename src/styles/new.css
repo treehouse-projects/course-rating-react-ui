@@ -10,7 +10,8 @@
 }
 
 /* add some whitespace around the delete buttons */
-.course--reviews--list > li > form > button {
+.course--reviews--list > li > form > button,
+.course--reviews--list .delete {
   margin: 0 0 20px 0;
 }
 

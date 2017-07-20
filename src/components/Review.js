@@ -12,9 +12,7 @@ const Review = props => (
       <Rating rating={props.rating} />
     </div>
     <MultiLineText text={props.review} />
-    <form>
-      <button className="button">Delete Review</button>
-    </form>
+    <a className="button delete" onClick={props.removeReview}>Delete Review</a>
   </li>
 );
 

@@ -3,6 +3,7 @@ import { courseActions } from "../actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
+import Title from "../components/Title";
 import StepInput from "../components/StepInput";
 
 class EditCourse extends Component {
@@ -107,6 +108,7 @@ class EditCourse extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
+              <Title>{this.props.course.title}</Title>
               <input
                 type="text"
                 placeholder="Course Title..."

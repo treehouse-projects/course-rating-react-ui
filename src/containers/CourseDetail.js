@@ -12,10 +12,32 @@ import { connect } from "react-redux";
 import { courseActions } from "../actions";
 
 class CourseDetail extends Component {
+  state = {
+    reviews: []
+  };
   componentDidMount() {
-    this.props.onMount(this.props.match.params.id);
+    this.props.onMount(this.props.match.params.id).then(({ course }) => {
+      this.setState(
+        {
+          ...this.state,
+          ...course
+        },
+        () => console.log(this.state)
+      );
+    });
   }
-
+  removeReview(index) {
+    this.setState(
+      {
+        ...this.state,
+        reviews: [
+          ...this.state.reviews.slice(0, index),
+          ...this.state.reviews.slice(index + 1)
+        ]
+      },
+      () => console.log(this.state)
+    );
+  }
   render() {
 
     return (
@@ -101,14 +123,15 @@ class CourseDetail extends Component {
               </h2>
 
               <ul className="course--reviews--list">
-                {this.props.course.reviews.map(r => {
+                {this.state.reviews.map((r, i, arr) => {
                   return (
                     <Review
                       name={r.user.fullName}
                       review={r.review}
                       date={r.postedOn}
                       rating={r.rating}
-                      key={r.id}
+                      removeReview={() => this.removeReview(i)}
+                      key={i}
                     />
                   );
                 })}
