@@ -6,7 +6,7 @@ import { coursesActions } from "../../actions";
 
 import CourseCard from "./CourseCard";
 import NewCourseCard from "./NewCourseCard";
-import Authenticated from "../Authenticated"
+import Authenticated from "../Authenticated";
 
 const mapStateToProps = state => ({ ...state });
 

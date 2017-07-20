@@ -6,21 +6,15 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // Containers
-import Courses from "./containers/Courses";
-import CourseDetail from "./containers/CourseDetail";
-import CreateCourse from "./containers/CreateCourse";
-import EditCourse from './containers/EditCourse';
-import SignIn from './containers/SignIn';
-import SignUp from './containers/SignUp';
+import { CourseDetail , Courses , CreateCourse , EditCourse , SignIn , SignUp } from './containers';
 
 // Routes
-import RedirectHome from "./routes/RedirectHome";
-import LogOutRoute from "./routes/LogOutRoute";
-
+import { LogOutRoute, RedirectHome } from './routes';
 
 // Components
-import Header from "./components/Header";
-import Authenticated from "./components/Authenticated";
+import { Header, Authenticated } from "./components";
+
+console.log(SignIn)
 
 class App extends Component {
   render() {

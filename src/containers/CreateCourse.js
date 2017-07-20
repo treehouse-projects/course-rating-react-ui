@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Step from '../components/Step';
+// import { Step }  from '../components';
 import { connect } from "react-redux";
 
 // Not currently used

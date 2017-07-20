@@ -2,9 +2,8 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { userActions } from "../actions";
-import Title from "../components/Title";
-import SignUpForm from "../components/SignUpForm";
-import ValidationErrors from "../components/ValidationErrors";
+
+import { Title, SignUpForm, ValidationErrors } from "../components";
 
 const SignUp = props =>
   <div className="grid-33 centered signup">

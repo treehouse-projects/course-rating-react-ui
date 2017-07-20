@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import Review from '../components/Review';
-import MultiLineText from '../components/MultiLineText';
-import Rating from '../components/Rating';
 import { connect } from "react-redux";
-import { courseActions } from "../actions";
 import ReactMarkdown from 'react-markdown';
-import Title from "../components/Title";
+
+import { courseActions } from "../actions";
+import { Title, Rating, MultiLineText, Review } from "../components";
 
 class CourseDetail extends Component {
   componentDidMount() {

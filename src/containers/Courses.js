@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CourseList from '../components/CourseList';
+import { CourseList } from '../components';
 
 const Courses = props => (
   <div>

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 const Authenticated = ({ AuthComponent, NoAuthComponent, auth }) => {
-    return auth ? <AuthComponent /> : (NoAuthComponent ? <NoAuthComponent /> : null)
+    return auth ? (<AuthComponent />) : (NoAuthComponent ? <NoAuthComponent /> : null);
 }
 
 
