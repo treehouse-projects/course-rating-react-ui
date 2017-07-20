@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 
 const AuthNav = props =>
   <nav>
-    <a href="#">
+    <a>
       Welcome {props.user.fullName}!
     </a>
-    <a href="/">Sign Out</a>
+    <a href="/logout">Sign Out</a>
   </nav>;
 
 const mapStateToProps = state => ({ user: state.user });

@@ -32,15 +32,14 @@ export function fetchCourse(id) {
     dispatch(requestCourse());
     return fetch(`${apiRoot}/courses/${id}`, {
       headers: {
-
       }
     })
       .then(response => response.json())
       .then(({ data }) => {
-        dispatch(requestCourseSuccess(data[0]));
+        return dispatch(requestCourseSuccess(data[0]));
       })
       .catch(err => {
-        dispatch(requestCourseFailure(err));
+        return dispatch(requestCourseFailure(err));
       });
   };
 }
@@ -118,7 +117,7 @@ export function editCourseFailure(err) {
 export function sendEditCourse(courseData, authHeader) {
   return dispatch => {
     dispatch(editCourse());
-    return fetch(`${apiRoot}/courses/${courseData._id}/courses`, {
+    return fetch(`${apiRoot}/courses/${courseData._id}`, {
       method: "post",
       body: JSON.stringify(courseData),
       headers: {

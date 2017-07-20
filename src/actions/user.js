@@ -1,8 +1,28 @@
 import fetch from "isomorphic-fetch";
 import { apiRoot } from "../config";
-//import basicAuth from "basic-auth";
 import { userActions } from "../actionTypes";
+import { errorActions } from "../actions";
 import { authenticated } from "./auth";
+
+const unwrapUser = ({ data }) => data[0];
+const createAuthHeader = (username, password) => `Basic ${btoa(`${username}:${password}`)}`
+
+const checkForErrors = response => {
+  if (response.status !== 201 && response.status !== 200) {
+    return jsonErrorPromise(response);
+  }
+  return response;
+};
+
+const jsonErrorPromise = response => {
+  return new Promise((resolve, reject) => {
+    response.json().then(reject);
+  });
+};
+
+const dispatchValidationError = dispatch => err => {
+  dispatch(errorActions.raiseValidationError(err.errors));
+};
 
 /*
 * GET /api/users
@@ -20,6 +40,7 @@ export function requestUserSuccess(user) {
     user
   };
 }
+
 export function requestUserFailure(err) {
   return {
     type: userActions.REQUEST_USER_FAILURE,
@@ -27,27 +48,33 @@ export function requestUserFailure(err) {
   };
 }
 
-/*    TODO: AUTHORIZE USER LOGIC    */
-
 export function fetchUser(username, password) {
   return dispatch => {
-    dispatch(requestUser())
-    const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
+    dispatch(requestUser());
+    const authHeader = createAuthHeader(username, password);
     return fetch(`${apiRoot}/users`, {
       headers: {
+        "Content-Type": "application/json",
         "Authorization": authHeader
       }
     })
+      .then(checkForErrors)
       .then(response => response.json())
-      .then(({ data }) => {
-        const user = data[0];
-        const {fullName, _id} = user;
-        dispatch(requestUserSuccess({fullName, _id}));
-      }).then(() => dispatch(authenticated(authHeader)))
-      .catch(err => {
-        dispatch(requestUserFailure());
-        console.log(err);
-      });
+      .then(unwrapUser)
+      .then(user => {
+        const { fullName, _id } = user;
+        dispatch(requestUserSuccess({ fullName, _id }));
+      })
+      .then(() => dispatch(authenticated(authHeader)))
+      .catch(err =>
+        dispatchValidationError(dispatch)({
+          errors: {
+            Authentication: {
+              message: "Invalid email and/or password"
+            }
+          }
+        })
+      );
   };
 }
 
@@ -55,43 +82,33 @@ export function fetchUser(username, password) {
 * POST /api/users
 */
 
-//   TODO: TEST RESPONSE FOR LOCATION HEADER
 export function createUser() {
   return {
     type: userActions.CREATE_USER
   };
 }
 
-export function createUserSuccess(data) {
-  return {
-    type: userActions.CREATE_USER_SUCCESS,
-    user: data
-  };
-}
 export function createUserFailure(err) {
   return {
     type: userActions.CREATE_USER_FAILURE,
     err: err
   };
 }
-
 export function sendCreateUser(userData) {
   return dispatch => {
-    dispatch(createUser())
+    dispatch(createUser());
     return fetch(`${apiRoot}/users`, {
-      method: 'post',
-      body: JSON.stringify(userData),
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      mode: "cors",
+      body: JSON.stringify(userData)
     })
-      .then(response => response.json())
-      .then(({ data }) => {
-        dispatch(createUserSuccess(data));
+      .then(checkForErrors)
+      .then(() => {
+        fetchUser(userData.emailAddress, userData.password)(dispatch);
       })
-      .catch(err => {
-        dispatch(createUserFailure());
-        console.log(err);
-      });
+      .catch(dispatchValidationError(dispatch));
   };
 }

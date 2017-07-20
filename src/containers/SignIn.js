@@ -1,32 +1,27 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import Title from "../components/Title";
 import { userActions } from "../actions";
+import Title from "../components/Title";
+import SignInForm from "../components/SignInForm";
+import ValidationErrors from "../components/ValidationErrors";
 
-const SignIn = props => (
-      <div className="grid-33 centered signin">
-        <Title>Sign In</Title>
-        <h1>Sign In</h1>
+const SignIn = props =>
+  <div className="grid-33 centered signin">
+    <Title>Sign In</Title>
+    <h1>Sign In</h1>
+    <ValidationErrors />
+    {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
 
-        {/*<validation-errors ng-show="vm.hasValidationErrors" errors="vm.validationErrors"></validation-errors>*/}
+    <SignInForm onSubmit={props.submitSignIn} />
+  </div>;
 
-        <form>
-          <input type="email" placeholder="Email Address" />
-          <input type="password" placeholder="Password" />
-          <button onClick={e => { e.preventDefault(); props.submitSignIn(); }} className="button">Sign In</button>
-          <NavLink className="button button-secondary" to="/signup">
-            Sign Up
-          </NavLink>
-        </form>
-      </div>
-    );
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      submitSignIn: (email, password) => userActions.fetchUser(email, password)
+    },
+    dispatch
+  );
 
-const mapStateToProps = state => ({ ...state });
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  submitSignIn: () =>  userActions.fetchUser("sam@jones.com", "password")
-}, dispatch);
- 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);
