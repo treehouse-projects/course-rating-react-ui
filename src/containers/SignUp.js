@@ -10,7 +10,6 @@ const SignUp = props =>
     <Title>Sign Up</Title>
     <h1>Sign Up</h1>
     <ValidationErrors />
-
     <SignUpForm onSubmit={props.submitSignUp} />
   </div>;
 

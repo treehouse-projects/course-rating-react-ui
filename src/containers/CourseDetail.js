@@ -113,30 +113,28 @@ class CourseDetail extends Component {
           </div>
         </div>
 
-        <a name="reviews" />
-
         <div className="course--reviews" id="reviews">
           <div className="bounds">
             <div className="grid-66">
               <h2>
                 {this.state.reviews.length} Reviews
               </h2>
-
-              <ul className="course--reviews--list">
-                {this.state.reviews.map((r, i, arr) => {
-                  return (
-                    <Review
-                      name={r.user.fullName}
-                      review={r.review}
-                      date={r.postedOn}
-                      rating={r.rating}
-                      auth={this.props.auth}
-                      removeReview={() => this.removeReview(i)}
-                      key={i}
-                    />
-                  );
-                })}
-              </ul>
+              <a name="reviews" title="Review Section" />
+                <ul className="course--reviews--list">
+                  {this.state.reviews.map((r, i, arr) => {
+                    return (
+                      <Review
+                        name={r.user.fullName}
+                        review={r.review}
+                        date={r.postedOn}
+                        rating={r.rating}
+                        auth={this.props.auth}
+                        removeReview={() => this.removeReview(i)}
+                        key={i}
+                      />
+                    );
+                  })}
+                </ul>
               <Authenticated AuthComponent={ReviewForm} />
             </div>
 

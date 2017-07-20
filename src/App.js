@@ -8,9 +8,7 @@ import store from "./store";
 import {
   CourseDetail,
   Courses,
-  CreateCourse,
-  SignIn,
-  SignUp
+  CreateCourse
 } from "./containers";
 
 // Routes
@@ -24,8 +22,6 @@ import {
 
 // Components
 import { Header, Authenticated, RedirectManager } from "./components";
-
-console.log(SignIn);
 
 class App extends Component {
   render() {

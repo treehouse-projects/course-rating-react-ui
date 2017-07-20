@@ -6,8 +6,7 @@ import {
   Title,
   StepInput,
   ValidationErrors,
-  ActionBar,
-  Authenticated
+  ActionBar
 } from "../components";
 
 class EditCourse extends Component {
@@ -26,7 +25,6 @@ class EditCourse extends Component {
   }
   addStep(index) {
     this.setState({
-      ...this.state,
       steps: [
         ...this.state.steps.slice(0, index + 1),
         { title: "", description: "" },
@@ -36,7 +34,6 @@ class EditCourse extends Component {
   }
   removeStep(index) {
     this.setState({
-      ...this.state,
       steps: [
         ...this.state.steps.slice(0, index),
         ...this.state.steps.slice(index + 1)
@@ -45,14 +42,12 @@ class EditCourse extends Component {
   }
   changeHandler(formField, value) {
     this.setState({
-      ...this.state,
       [formField]: value
     });
   }
 
   stepChangeHandler(stepField, value, index) {
     this.setState({
-      ...this.state,
       steps: this.state.steps.map((step, i) => {
         if (index === i) {
           return {
