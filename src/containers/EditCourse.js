@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import { courseActions } from "../actions";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Title, StepInput, ValidationErrors, ActionBar, Authenticated } from "../components";
+import {
+  Title,
+  StepInput,
+  ValidationErrors,
+  ActionBar,
+  Authenticated
+} from "../components";
 
 class EditCourse extends Component {
   state = {
-    title: '',
+    title: "",
     steps: [],
     user: {}
   };
@@ -65,8 +71,11 @@ class EditCourse extends Component {
   render() {
     return (
       <div>
-        <Authenticated AuthComponent={ActionBar} NoAuthComponent={null} />
-
+        <ActionBar>
+          <button className="button" onClick={this.onSubmit.bind(this)}>
+            Submit Changes
+          </button>
+        </ActionBar>
         <div className="bounds course--detail">
           <ValidationErrors />
           <div className="grid-66">

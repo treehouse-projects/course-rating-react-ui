@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 
 import { courseActions } from "../actions";
-import { Title, Rating, MultiLineText, Review, ReviewForm, Authenticated } from "../components";
+import {
+  Title,
+  Rating,
+  MultiLineText,
+  Review,
+  ReviewForm,
+  Authenticated,
+  ActionBar
+} from "../components";
 import { NavLink } from "react-router-dom";
-
 
 class CourseDetail extends Component {
   state = {
@@ -13,47 +20,48 @@ class CourseDetail extends Component {
   };
   componentDidMount() {
     this.props.onMount(this.props.match.params.id).then(({ course }) => {
-      this.setState(
-        {
-          ...this.state,
-          ...course
-        });
+      this.setState({
+        ...this.state,
+        ...course
+      });
     });
   }
   removeReview(index) {
-    this.setState(
-      {
-        ...this.state,
-        reviews: [
-          ...this.state.reviews.slice(0, index),
-          ...this.state.reviews.slice(index + 1)
-        ]
-      });
+    this.setState({
+      ...this.state,
+      reviews: [
+        ...this.state.reviews.slice(0, index),
+        ...this.state.reviews.slice(index + 1)
+      ]
+    });
   }
   render() {
-
     return (
       <div>
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              <NavLink
-                className="button"
-                to={`/courses/${this.props.course._id}/edit`}
-              >
-                Edit Course
-              </NavLink>
-            </div>
-          </div>
-        </div>
+        <Authenticated>
+          <ActionBar>
+            <NavLink
+              className="button"
+              to={`/courses/${this.props.course._id}/edit`}
+            >
+              Edit Course
+            </NavLink>
+          </ActionBar>
+        </Authenticated>
 
         <div className="bounds course--detail">
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              <Title>{this.props.course.title}</Title>
-              <h3 className="course--title">{this.props.course.title}</h3>
-              <p>By {this.props.course.user.fullName}</p>
+              <Title>
+                {this.props.course.title}
+              </Title>
+              <h3 className="course--title">
+                {this.props.course.title}
+              </h3>
+              <p>
+                By {this.props.course.user.fullName}
+              </p>
             </div>
             <div className="course--description">
               <MultiLineText text={this.props.course.description} />
@@ -129,7 +137,7 @@ class CourseDetail extends Component {
                   );
                 })}
               </ul>
-              <Authenticated AuthComponent={ReviewForm} /> 
+              <Authenticated AuthComponent={ReviewForm} />
             </div>
 
             <div className="grid-25 grid-right">

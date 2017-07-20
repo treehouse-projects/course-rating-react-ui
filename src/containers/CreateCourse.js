@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 // Not currently used
 import { courseActions } from "../actions";
 import { NavLink } from "react-router-dom";
-import { StepInput, ValidationErrors, ActionBar } from "../components";
+import { StepInput, ValidationErrors, ActionBar, Title } from "../components";
 
 class CreateCourse extends Component {
   state = {
@@ -14,52 +14,44 @@ class CreateCourse extends Component {
   };
 
   addStep(index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: [
-          ...this.state.steps.slice(0, index + 1),
-          { title: "", description: "" },
-          ...this.state.steps.slice(index + 1)
-        ]
-      }
-    );
+    this.setState({
+      ...this.state,
+      steps: [
+        ...this.state.steps.slice(0, index + 1),
+        { title: "", description: "" },
+        ...this.state.steps.slice(index + 1)
+      ]
+    });
   }
   removeStep(index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: [
-          ...this.state.steps.slice(0, index),
-          ...this.state.steps.slice(index + 1)
-        ]
-      }
-    );
+    this.setState({
+      ...this.state,
+      steps: [
+        ...this.state.steps.slice(0, index),
+        ...this.state.steps.slice(index + 1)
+      ]
+    });
   }
   changeHandler(formField, value) {
-    this.setState(
-      {
-        ...this.state,
-        [formField]: value
-      }
-    );
+    this.setState({
+      ...this.state,
+      [formField]: value
+    });
   }
 
   stepChangeHandler(stepField, value, index) {
-    this.setState(
-      {
-        ...this.state,
-        steps: this.state.steps.map((step, i) => {
-          if (index === i) {
-            return {
-              ...step,
-              [stepField]: value
-            };
-          }
-          return step;
-        })
-      }
-    );
+    this.setState({
+      ...this.state,
+      steps: this.state.steps.map((step, i) => {
+        if (index === i) {
+          return {
+            ...step,
+            [stepField]: value
+          };
+        }
+        return step;
+      })
+    });
   }
   onSubmit(e) {
     e.preventDefault();
@@ -70,15 +62,12 @@ class CreateCourse extends Component {
   render() {
     return (
       <div>
-        <div className="actions--bar">
-          <div className="bounds">
-            <div className="grid-100">
-              <button className="button" onClick={this.onSubmit.bind(this)}>
-                Create Course
-              </button>
-            </div>
-          </div>
-        </div>
+        <Title>Create Course</Title>
+        <ActionBar>
+          <button className="button" onClick={this.onSubmit.bind(this)}>
+            Create Course
+          </button>
+        </ActionBar>
 
         <div className="bounds course--detail">
           <ValidationErrors />
