@@ -12,11 +12,6 @@ const Review = props => (
       <Rating rating={props.rating} />
     </div>
     <MultiLineText text={props.review} />
-    {
-      (props.auth)
-        ? <a className="button delete" onClick={props.removeReview}>Delete Review</a>
-        : null
-    }
   </li>
 );
 

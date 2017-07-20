@@ -129,7 +129,7 @@ class CourseDetail extends Component {
                   );
                 })}
               </ul>
-              <ReviewForm /> 
+              <Authenticated AuthComponent={ReviewForm} /> 
             </div>
 
             <div className="grid-25 grid-right">
