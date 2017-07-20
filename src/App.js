@@ -6,10 +6,10 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // Containers
-import { CourseDetail , Courses , CreateCourse , EditCourse , SignIn , SignUp } from './containers';
+import { CourseDetail , Courses , CreateCourse , SignIn , SignUp } from './containers';
 
 // Routes
-import { LogOutRoute, RedirectHome } from './routes';
+import { LogOutRoute, EditCourseRoute, RedirectHome, SignInRoute, SignUpRoute } from './routes';
 
 // Components
 import { Header, Authenticated } from "./components";
@@ -25,12 +25,12 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path='/' component={Courses} />
-              <Authenticated path="/signin" NoAuthComponent={SignIn} />
-              <Authenticated path="/signup" NoAuthComponent={SignUp} />
-              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourse} />
+              <Authenticated path="/signin" AuthComponent={RedirectHome} NoAuthComponent={SignInRoute} />
+              <Authenticated path="/signup" AuthComponent={RedirectHome} NoAuthComponent={SignUpRoute} />
               <Route exact path='/courses/:id' component={CourseDetail} />
-              <Authenticated path='/new-course' AuthComponent={CreateCourse} />
-              <Authenticated path='/logout' AuthComponent={LogOutRoute} />
+              <Authenticated path="/courses/:id/edit" AuthComponent={EditCourseRoute} NoAuthComponent={RedirectHome} />
+              <Route path='/new-course' component={CreateCourse} />
+              <Authenticated path='/logout' AuthComponent={LogOutRoute} NoAuthComponent={RedirectHome} />
             </Switch>
           </div>
         </BrowserRouter>

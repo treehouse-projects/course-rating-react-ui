@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from "react-redux";
 
-const BreadcrumbTitle = props => {  
+const BreadcrumbTitle = props => {
   return (
       <span className="selected">{ props.breadcrumb }</span>
   )

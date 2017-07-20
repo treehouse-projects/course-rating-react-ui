@@ -232,7 +232,8 @@ body {
   color: #fff;
 }
 /* line 29, ../sass/global.sass */
-.header--logo .chevron {
+.header--logo .chevron,
+.course--header .chevron {
   fill: rgba(255, 255, 255, 0.3);
   width: 7px;
   height: auto;

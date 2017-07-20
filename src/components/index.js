@@ -9,6 +9,7 @@ import Step  from "./Step";
 import Title  from "./Title";
 import ValidationErrors  from "./ValidationErrors";
 import Header from "./Header";
+import ReviewForm from "./ReviewForm";
 
 export {
     CourseList,
@@ -16,6 +17,7 @@ export {
     MultiLineText,
     Rating,
     Review,
+    ReviewForm,
     SignInForm,
     SignUpForm,
     Step,

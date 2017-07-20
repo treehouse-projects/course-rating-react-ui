@@ -4,69 +4,70 @@ import { connect } from "react-redux";
 
 // Not currently used
 import { courseActions } from "../actions";
+import { NavLink } from "react-router-dom";
+import StepInput from "../components/StepInput";
 
 class CreateCourse extends Component {
   state = {
-    steps: [{ title: "", description: "" }]
+    steps: [{ title: "", description: "" }],
+    user: {}
   };
 
+  addStep(index) {
+    this.setState(
+      {
+        ...this.state,
+        steps: [
+          ...this.state.steps.slice(0, index + 1),
+          { title: "", description: "" },
+          ...this.state.steps.slice(index + 1)
+        ]
+      },
+      () => console.log(this.state)
+    );
+  }
+  removeStep(index) {
+    this.setState(
+      {
+        ...this.state,
+        steps: [
+          ...this.state.steps.slice(0, index),
+          ...this.state.steps.slice(index + 1)
+        ]
+      },
+      () => console.log(this.state)
+    );
+  }
   changeHandler(formField, value) {
-    this.setState({
-      ...this.state,
-      [formField]: value
-    }, () => console.log(this.state));
+    this.setState(
+      {
+        ...this.state,
+        [formField]: value
+      },
+      () => console.log(this.state)
+    );
   }
 
   stepChangeHandler(stepField, value, index) {
-    this.setState({
-      ...this.state,
-      steps: this.state.steps.map((step, i) => {
-        // needs a value returned if i !== index
-        if (i === index) {
-          return {
-            ...this.state.steps[i],
-            [stepField]: value
-          };
-        }
-      })
-    }, () => console.log(this.state));
+    this.setState(
+      {
+        ...this.state,
+        steps: this.state.steps.map((step, i) => {
+          if (index === i) {
+            return {
+              ...step,
+              [stepField]: value
+            };
+          }
+          return step;
+        })
+      },
+      () => console.log(this.state)
+    );
   }
-
-  addStep(index) {
-    // the step numbers are "1" based
-    // so increment the index to determine the new step number
-    let newStepNumber = index + 1;
-    // increment the step number for any steps that come after the new step
-    let {steps} = this.state;
-    steps.forEach(step => {
-      if (step.stepNumber >= newStepNumber) {
-        step.stepNumber++;
-      }
-    });
-
-    // insert the new step
-    steps.splice(index, 0, {
-      stepNumber: newStepNumber,
-      title: "",
-      description: ""
-    });
-    this.setState({ steps: this.state.steps });
-  }
-
-  removeStep(indexToRemove) {
-    let steps = this.state.steps;
-
-    // decrement the step numbers
-    // for all steps that come after the step that we are removing
-    steps.forEach((step, index) => {
-      if (index > indexToRemove) {
-        step.stepNumber--;
-      }
-    });
-
-    // remove the step
-    steps.splice(indexToRemove, 1);
-    this.setState({ steps: this.state.steps });
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state);
   }
 
   render() {
@@ -104,20 +105,22 @@ class CreateCourse extends Component {
                 placeholder="Course Title..."
                 className="input-title course--title--input"
                 onChange={e => {
-                  this.changeHandler("courseTitle", e.target.value);
+                  this.changeHandler("title", e.target.value);
                 }}
-                value={this.state.courseTitle}
+                value={this.state.title}
               />
-              <p>By </p>
+              <p>
+                By {this.state.user.fullName}
+              </p>
             </div>
             <div className="course--description">
               <textarea
                 className="autogrow"
                 placeholder="Course description..."
                 onChange={e => {
-                  this.changeHandler("courseDescription", e.target.value);
+                  this.changeHandler("description", e.target.value);
                 }}
-                value={this.state.courseDescription}
+                value={this.state.description}
               />
               <div className="course--steps">
                 <h2>Add steps</h2>
@@ -125,56 +128,23 @@ class CreateCourse extends Component {
                 <ol>
                   {this.state.steps.map((step, i) => {
                     return (
-                      <li key={i}>
-                        <h3>
-                          <input
-                            type="text"
-                            placeholder="Step Title..."
-                            className="input-title course--steps--input"
-                            onChange={e => {
-                              this.stepChangeHandler(
-                                "title",
-                                e.target.value,
-                                i
-                              );
-                            }}
-                            value={this.state.steps[i].title}
-                          />
-                        </h3>
-                        <textarea
-                          placeholder="Step description..."
-                          className="autogrow"
-                          onChange={e => {
-                            this.stepChangeHandler("description", e.target.value, i);
-                          }}
-                          value={this.state.steps[i].description}
-                        />
-                        <a
-                          className="course--steps--add"
-                          onClick={() => this.addStep(i)}
-                        >
-                          <svg
-                            x="0px"
-                            y="0px"
-                            viewBox="0 0 13 13"
-                            className="add"
-                          >
-                            <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 " />
-                          </svg>
-                          Add step...
-                        </a>
-                        <a
-                          className="course--steps--remove"
-                          onClick={() => this.removeStep(i)}
-                        >
-                          Remove
-                        </a>
-                      </li>
+                      <StepInput
+                        key={i}
+                        title={step.title}
+                        description={step.description}
+                        addStep={() => this.addStep(i)}
+                        removeStep={() => this.removeStep(i)}
+                        changeHandler={(stepField, value) =>
+                          this.stepChangeHandler(stepField, value, i)}
+                      />
                     );
                   })}
                 </ol>
               </div>
               <a className="button">Save Course</a>
+              <NavLink className="button button-secondary" to={`/`}>
+                Cancel
+              </NavLink>
             </div>
           </div>
 
@@ -187,9 +157,9 @@ class CreateCourse extends Component {
                     type="text"
                     placeholder="Hours"
                     onChange={e => {
-                      this.changeHandler("hours", e.target.value);
+                      this.changeHandler("estimatedTime", e.target.value);
                     }}
-                    value={this.state.hours}
+                    value={this.state.estimatedTime}
                   />
                 </li>
                 <li className="course--stats--list--item">
@@ -197,9 +167,9 @@ class CreateCourse extends Component {
                   <textarea
                     placeholder="List materials..."
                     onChange={e => {
-                      this.changeHandler("materials", e.target.value);
+                      this.changeHandler("materialsNeeded", e.target.value);
                     }}
-                    value={this.state.materials}
+                    value={this.state.materialsNeeded}
                   />
                 </li>
               </ul>
