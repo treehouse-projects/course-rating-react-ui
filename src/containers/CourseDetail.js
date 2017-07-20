@@ -21,9 +21,7 @@ class CourseDetail extends Component {
         {
           ...this.state,
           ...course
-        },
-        () => console.log(this.state)
-      );
+        });
     });
   }
   removeReview(index) {
@@ -34,9 +32,7 @@ class CourseDetail extends Component {
           ...this.state.reviews.slice(0, index),
           ...this.state.reviews.slice(index + 1)
         ]
-      },
-      () => console.log(this.state)
-    );
+      });
   }
   render() {
 
@@ -119,7 +115,7 @@ class CourseDetail extends Component {
           <div className="bounds">
             <div className="grid-66">
               <h2>
-                {this.props.course.reviews.length} Reviews
+                {this.state.reviews.length} Reviews
               </h2>
 
               <ul className="course--reviews--list">
